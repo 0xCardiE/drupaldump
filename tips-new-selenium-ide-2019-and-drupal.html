@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" prefix="content: http://purl.org/rss/1.0/modules/content/  dc: http://purl.org/dc/terms/  foaf: http://xmlns.com/foaf/0.1/  og: http://ogp.me/ns#  rdfs: http://www.w3.org/2000/01/rdf-schema#  schema: http://schema.org/  sioc: http://rdfs.org/sioc/ns#  sioct: http://rdfs.org/sioc/types#  skos: http://www.w3.org/2004/02/skos/core#  xsd: http://www.w3.org/2001/XMLSchema# ">
+  <head>
+<meta charset="utf-8" />
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-25017378-1"></script>
+<script>window.dataLayer = window.dataLayer || [];function gtag(){dataLayer.push(arguments)};gtag("js", new Date());gtag("config", "UA-25017378-1", {"groups":"default","anonymize_ip":true,"allow_ad_personalization_signals":false});</script>
+<meta name="Generator" content="Drupal 8 (https://www.drupal.org)" />
+<meta name="MobileOptimized" content="width" />
+<meta name="HandheldFriendly" content="true" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="shortcut icon" href="/drupaldump/sites/default/files/12065725081662529858mszinger_Recycle_simple.ico" type="image/vnd.microsoft.icon" />
+<link rel="canonical" href="/drupaldump/tips-new-selenium-ide-2019-and-drupal" />
+<link rel="shortlink" href="/drupaldump/node/493" />
+<link rel="revision" href="/drupaldump/tips-new-selenium-ide-2019-and-drupal" />
+
+    <title>Tips for New Selenium IDE 2019 and Drupal | DrupalDump.com</title>
+    <link rel="stylesheet" media="all" href="/drupaldump/sites/default/files/css/css_AlJtUK5t4kiN78bTuJmj-RlnrwdMAgZ7cSkPQ8kQg08.css" />
+<link rel="stylesheet" media="all" href="/drupaldump/sites/default/files/css/css_bIJWoj7ddw1nKKt8k0N7ZLw5VA0VkhLoweEPaHldh1E.css" />
+
+    
+<!--[if lte IE 8]>
+<script src="/drupaldump/sites/default/files/js/js_VtafjXmRvoUgAzqzYTA3Wrjkx9wcWhjP0G4ZnnqRamA.js"></script>
+<![endif]-->
+
+        <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Merriweather:300,700,700italic,300italic|Open+Sans:700,400" />
+  </head>
+    <a href="#main-content" class="visually-hidden focusable skip-link">
+      Skip to main content
+    </a>
+    
+      <div class="dialog-off-canvas-main-canvas" data-off-canvas-main-canvas>
+    <body class="nav-closed">      <div>
+    <nav role="navigation" aria-labelledby="block-casper-main-menu-menu" id="block-casper-main-menu">
+            
+  <h2 class="visually-hidden" id="block-casper-main-menu-menu">Main navigation</h2>
+  
+
+        
+                    <div class="nav">
+        <h3 class="nav-title">Menu</h3>
+        <a href="#" class="nav-close">
+            <span class="hidden">Close</span>
+        </a>
+        <ul>
+                                        <li role="presentation" >
+                <a href="/drupaldump/" data-drupal-link-system-path="&lt;front&gt;">Home</a>
+                            </li>
+                                <li role="presentation" >
+                <a href="/drupaldump/posts-about/modules" data-drupal-link-system-path="taxonomy/term/17">Modules</a>
+                            </li>
+                                <li role="presentation" >
+                <a href="/drupaldump/posts-about/devops" data-drupal-link-system-path="taxonomy/term/19">System</a>
+                            </li>
+                                <li role="presentation" >
+                <a href="/drupaldump/posts-about/theming" data-drupal-link-system-path="taxonomy/term/10">Theming</a>
+                            </li>
+                                <li role="presentation" >
+                <a href="/drupaldump/contact/feedback" data-drupal-link-system-path="contact/feedback">Contact</a>
+                            </li>
+                </ul>
+        </div>
+    
+
+
+  </nav>
+
+  </div>
+
+<span class="nav-cover"></span>
+<div class="site-wrapper">
+<header class="main-header post-head no-cover" xmlns="http://www.w3.org/1999/html">
+    <nav class="main-nav  clearfix">
+                <a class="blog-logo" href="/drupaldump/"><img src="/drupaldump/sites/default/files/theme/backgrounds/drupal 8 logo isolated CMYK 72.png" /></a>
+                <a class="menu-button icon-menu" href="#"><span class="word">Menu</span></a>
+    </nav>
+</header>
+    
+<div class="highlighted">
+  <div>
+    <div data-drupal-messages-fallback class="hidden"></div>
+
+  </div>
+
+</div>
+    <main role="main">
+        <a id="main-content" tabindex="-1"></a>
+        <div class="layout-content">
+                              <div>
+    <div id="block-casper-content">
+  
+    
+      
+<main class="content" role="main">
+  <article class="post page">
+      <header class="post-header">
+                    <h1 class="post-title"><span class="field-wrapper">Tips for New Selenium IDE 2019 and Drupal</span>
+</h1>
+          	<p class="post-date">Tue, 04/30/2019</p>	
+      </header>
+      <section class="post-content">
+                    <p>
+            <div class="body field"><p>As it is often referred online as "new selenium IDE 2019" lets sum up some tips how to use it. It can record your actions and put them in its UI, but you will often need to change it and refine it to get something useful.</p>
+<p>Proper selectors, depending on your html output and classes/ids you might find they dont always work, for example in drupal forms "ids" change so what is once "id=edit-customer-profile-shipping-commerce-customer-address-und-0-locality"  becomes "id=edit-customer-profile-shipping-commerce-customer-address-und-0-locality--2" and so on when using AJAX, so better way to target those forms is by "name" or "class", using name would be like<br />
+"name=customer_profile_shipping[commerce_customer_address][und][0][locality]".</p>
+<p>Also use "pause" command when there is some AJAX action, I usually set value to 2000 so that selenium waits for ajax to refresh for 2 seconds.</p>
+<p>When using text as selector, for example to click on some link, use command "click" and in target use <strong>"linkText=Log out"</strong> and with that Selenium will click on log out link and log out. To select plain text use <strong>css=<em>tag</em>:contains("<em>inner text</em>") </strong>in target field, for example </p>
+<p>Executing script command is specially useful, I use it to get some value and then after that to have IF/END block, for example <strong>css=div:contains("User Name")</strong> </p>
+<pre>
+<code class="language-javascript">if (document.getElementsByClassName("form-item-account-login-mail").length != 0) { return true} else {return false}</code></pre><p>will check length of this element and if it is not zero, will return "true", this line goes under <strong>target </strong>field, and under value you can put for example <strong>x a</strong>s variable.<br />
+Then aftee that you add new command that is "IF" and in it target is just <strong>${x}</strong> which will make IF check for ${x} variable and if it is true it will run that block (for example to check if user needs to login and if so, do loging in).</p>
+<p>Better yet, you can just use something like this under <strong>target</strong> field:</p>
+<pre>
+<code class="language-javascript">return document.querySelector("body").classList.contains("not-logged-in")</code></pre><p>which will return true/false or depending on your selector some value that you can then use in IF loop, under IF you can have expression like</p>
+<pre>
+<code class="language-javascript">${x} &gt;= 1</code></pre><p>
+You can also make tests that can be used in other tests, you use them with "run" command and set as a target name of test. Problem with this is that if they are test that are not standalone they will be run anyway when you go to button "run all tests" so this will pollute your testing a bit.</p>
+<p>Some additional tips, select radio button with "name=stadiumType value=football" and for everything missed above, check table below.</p>
+<table align="center" border="1" cellpadding="0" cellspacing="0">
+<tbody>
+<tr>
+<th valign="top" width="28%">
+<p align="center"><b>Method</b></p>
+</th>
+<th valign="top" width="34%">
+<p align="center"><b>Target Syntax</b></p>
+</th>
+<th valign="top" width="37%">
+<p align="center"><b>Example</b></p>
+</th>
+</tr>
+<tr>
+<td valign="top" width="28%">By ID</td>
+<td valign="top" width="34%">id=<i> id_of_the_element</i></td>
+<td valign="top" width="37%">id=email</td>
+</tr>
+<tr>
+<td valign="top" width="28%">By Name</td>
+<td valign="top" width="34%">name=<i>name_of_the_element</i></td>
+<td valign="top" width="37%">name=userName</td>
+</tr>
+<tr>
+<td valign="top" width="28%">By Name Using Filters</td>
+<td valign="top" width="34%">name=<i>name_of_the_element</i><i>filter</i>=<i>value_of_filter</i></td>
+<td valign="top" width="37%">name=tripType value=oneway</td>
+</tr>
+<tr>
+<td valign="top" width="28%">By Link Text</td>
+<td valign="top" width="34%">link=<i>link_text</i></td>
+<td valign="top" width="37%">link=REGISTER</td>
+</tr>
+<tr>
+<td valign="top" width="28%">Tag and ID</td>
+<td valign="top" width="34%">css=<i>tag</i>#<i>id</i></td>
+<td valign="top" width="37%">css=input#email</td>
+</tr>
+<tr>
+<td valign="top" width="28%">Tag and Class</td>
+<td valign="top" width="34%">css=<i>tag</i>.<i>class</i></td>
+<td valign="top" width="37%">css=input.inputtext</td>
+</tr>
+<tr>
+<td valign="top" width="28%">Tag and Attribute</td>
+<td valign="top" width="34%">css=<i>tag</i>[<i>attribute</i>=<i>value</i>]</td>
+<td valign="top" width="37%">css=input[name=lastName]</td>
+</tr>
+<tr>
+<td valign="top" width="28%">Tag, Class, and Attribute</td>
+<td valign="top" width="34%">css=<i>tag</i>.<i>class</i>[<i>attribute</i>=<i>value</i>]</td>
+<td valign="top" width="37%">css=input.inputtext[tabindex=1]</td>
+</tr>
+</tbody>
+</table>
+</div>
+      
+      <div class="field-wrapper">
+              <div><a href="/drupaldump/taxonomy/term/24" hreflang="en">Drupal 8</a></div>
+          </div>
+  
+      <div class="field-wrapper">
+              <div><a href="/drupaldump/posts-about/testing" hreflang="en">Testing</a></div>
+          </div>
+  
+            <div class="field-wrapper"><div id="disqus_thread"><noscript>
+  <p>
+    <a href="http://drupaldump.disqus.com/">View the discussion thread.</a>
+  </p>
+</noscript>
+</div>
+</div>
+      </p>
+                </section>
+  </article>
+</main>
+
+  </div>
+
+  </div>
+
+                    </div>
+    </main>
+            <footer role="contentinfo">
+              <div>
+    <div id="block-home">
+  
+    
+      
+            <div class="body field"><p><a href="/drupaldump/">Finding The Way Home</a> @ 2011 - 2020</p>
+</div>
+      
+  </div>
+<div id="block-casper-powered" role="complementary">
+  
+    
+      <span>Powered by <a href="https://www.drupal.org">Drupal</a></span>
+  </div>
+
+  </div>
+
+        </footer>
+    </div>
+</body>
+
+  </div>
+
+    
+    <script type="application/json" data-drupal-selector="drupal-settings-json">{"path":{"baseUrl":"/drupaldump/","scriptPath":null,"pathPrefix":"","currentPath":"node\/493","currentPathIsAdmin":false,"isFront":false,"currentLanguage":"en"},"pluralDelimiter":"\u0003","suppressDeprecationErrors":true,"google_analytics":{"account":"UA-25017378-1","trackOutbound":true,"trackMailto":true,"trackDownload":true,"trackDownloadExtensions":"7z|aac|arc|arj|asf|asx|avi|bin|csv|doc(x|m)?|dot(x|m)?|exe|flv|gif|gz|gzip|hqx|jar|jpe?g|js|mp(2|3|4|e?g)|mov(ie)?|msi|msp|pdf|phps|png|ppt(x|m)?|pot(x|m)?|pps(x|m)?|ppam|sld(x|m)?|thmx|qtm?|ra(m|r)?|sea|sit|tar|tgz|torrent|txt|wav|wma|wmv|wpd|xls(x|m|b)?|xlt(x|m)|xlam|xml|z|zip"},"disqusComments":"drupaldump","disqus":{"domain":"drupaldump","url":"http:\/\/95.216.6.96:8088\/tips-new-selenium-ide-2019-and-drupal","title":"Tips for New Selenium IDE 2019 and Drupal","identifier":"node\/493","disable_mobile":false},"user":{"uid":0,"permissionsHash":"61d0b3aee71a501d8526c4a3ac79a2c1e6f537791b4ed94adeca4bcbf97c542c"}}</script>
+<script src="/drupaldump/sites/default/files/js/js_2TI3DKoAde-tDzv3_jAE9uNOl4laF37h3D1iN4gXU_w.js"></script>
+
+</html>

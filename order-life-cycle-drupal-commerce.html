@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" prefix="content: http://purl.org/rss/1.0/modules/content/  dc: http://purl.org/dc/terms/  foaf: http://xmlns.com/foaf/0.1/  og: http://ogp.me/ns#  rdfs: http://www.w3.org/2000/01/rdf-schema#  schema: http://schema.org/  sioc: http://rdfs.org/sioc/ns#  sioct: http://rdfs.org/sioc/types#  skos: http://www.w3.org/2004/02/skos/core#  xsd: http://www.w3.org/2001/XMLSchema# ">
+  <head>
+<meta charset="utf-8" />
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-25017378-1"></script>
+<script>window.dataLayer = window.dataLayer || [];function gtag(){dataLayer.push(arguments)};gtag("js", new Date());gtag("config", "UA-25017378-1", {"groups":"default","anonymize_ip":true,"allow_ad_personalization_signals":false});</script>
+<meta name="Generator" content="Drupal 8 (https://www.drupal.org)" />
+<meta name="MobileOptimized" content="width" />
+<meta name="HandheldFriendly" content="true" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="shortcut icon" href="/drupaldump/sites/default/files/12065725081662529858mszinger_Recycle_simple.ico" type="image/vnd.microsoft.icon" />
+<link rel="canonical" href="/drupaldump/order-life-cycle-drupal-commerce" />
+<link rel="shortlink" href="/drupaldump/node/528" />
+<link rel="revision" href="/drupaldump/order-life-cycle-drupal-commerce" />
+
+    <title>Order life cycle in drupal commerce | DrupalDump.com</title>
+    <link rel="stylesheet" media="all" href="/drupaldump/sites/default/files/css/css_AlJtUK5t4kiN78bTuJmj-RlnrwdMAgZ7cSkPQ8kQg08.css" />
+<link rel="stylesheet" media="all" href="/drupaldump/sites/default/files/css/css_bIJWoj7ddw1nKKt8k0N7ZLw5VA0VkhLoweEPaHldh1E.css" />
+
+    
+<!--[if lte IE 8]>
+<script src="/drupaldump/sites/default/files/js/js_VtafjXmRvoUgAzqzYTA3Wrjkx9wcWhjP0G4ZnnqRamA.js"></script>
+<![endif]-->
+
+        <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Merriweather:300,700,700italic,300italic|Open+Sans:700,400" />
+  </head>
+    <a href="#main-content" class="visually-hidden focusable skip-link">
+      Skip to main content
+    </a>
+    
+      <div class="dialog-off-canvas-main-canvas" data-off-canvas-main-canvas>
+    <body class="nav-closed">      <div>
+    <nav role="navigation" aria-labelledby="block-casper-main-menu-menu" id="block-casper-main-menu">
+            
+  <h2 class="visually-hidden" id="block-casper-main-menu-menu">Main navigation</h2>
+  
+
+        
+                    <div class="nav">
+        <h3 class="nav-title">Menu</h3>
+        <a href="#" class="nav-close">
+            <span class="hidden">Close</span>
+        </a>
+        <ul>
+                                        <li role="presentation" >
+                <a href="/drupaldump/" data-drupal-link-system-path="&lt;front&gt;">Home</a>
+                            </li>
+                                <li role="presentation" >
+                <a href="/drupaldump/posts-about/modules" data-drupal-link-system-path="taxonomy/term/17">Modules</a>
+                            </li>
+                                <li role="presentation" >
+                <a href="/drupaldump/posts-about/devops" data-drupal-link-system-path="taxonomy/term/19">System</a>
+                            </li>
+                                <li role="presentation" >
+                <a href="/drupaldump/posts-about/theming" data-drupal-link-system-path="taxonomy/term/10">Theming</a>
+                            </li>
+                                <li role="presentation" >
+                <a href="/drupaldump/contact/feedback" data-drupal-link-system-path="contact/feedback">Contact</a>
+                            </li>
+                </ul>
+        </div>
+    
+
+
+  </nav>
+
+  </div>
+
+<span class="nav-cover"></span>
+<div class="site-wrapper">
+<header class="main-header post-head no-cover" xmlns="http://www.w3.org/1999/html">
+    <nav class="main-nav  clearfix">
+                <a class="blog-logo" href="/drupaldump/"><img src="/drupaldump/sites/default/files/theme/backgrounds/drupal 8 logo isolated CMYK 72.png" /></a>
+                <a class="menu-button icon-menu" href="#"><span class="word">Menu</span></a>
+    </nav>
+</header>
+    
+<div class="highlighted">
+  <div>
+    <div data-drupal-messages-fallback class="hidden"></div>
+
+  </div>
+
+</div>
+    <main role="main">
+        <a id="main-content" tabindex="-1"></a>
+        <div class="layout-content">
+                              <div>
+    <div id="block-casper-content">
+  
+    
+      
+<main class="content" role="main">
+  <article class="post page">
+      <header class="post-header">
+                    <h1 class="post-title"><span class="field-wrapper">Order life cycle in drupal commerce</span>
+</h1>
+          	<p class="post-date">Fri, 09/13/2019</p>	
+      </header>
+      <section class="post-content">
+                    <p>
+            <div class="body field"><p>Drupal commerce has rather good documentation for D8 commerce but I will try to summarise here how each order is made, what it needs to be completed and what goes on in lifespan of an order.<br />
+So lets start by order entity it self, check</p>
+<pre>
+<code class="language-php">namespace Drupal\commerce_order\Entity 
+
+class Order extends CommerceContentEntityBase implements OrderInterface {</code></pre><p>and lets check <strong>baseFieldDefinitions </strong>method, you will see there are 3 required fields, order_id, state and store, all the rest will be filled in during order life cycle. One of the first things that will be filled is UID, which is entity reference field. Then there is billing_profile, which is also reference field, there is adjustments field, which is reference to adjustments done on order total(discounts). In the end there is bunch of "flags" and values fields like total_price, data field which is a "map" type field and is "serialized array of additional data" where you can store whatever you might need extra when using orders, various time/date fields, state(check) etc.</p>
+<p>If you check Database table of commerce_order, you will see there is more columns there. Like different payment columns, they come from other module, <strong>payment</strong> module. It is done the old school drupal 7 way with hooks, check the commerce_payment.module and see <strong>commerce_payment_entity_<wbr></wbr>base_field_info</strong>. This  is where we hook into order entity and add this 2 reference fields, payment_gateway and payment_method. Payment method is reference to saved payment method ID and payment_gateway is name of configuration entity of particular payment we are using for this order. In similar way <strong>commerce_checkout</strong> module adds checkout_flow entity reference field and checkout_step which is just a string name of step this order is on.</p>
+<p>So lets move to <strong>CART</strong> as this is first step of order journey, cart is basically our order displayed with a View, as you can see it here </p>
+<pre>
+<code class="language-php">namespace Drupal\commerce_cart\Controller 
+
+class CartController extends ControllerBase {</code></pre><p>this is controller that displays our view with building a "build" array in <b>cartPage</b> method, with order id and html tags to build a form. This is all called and displayed in <strong>renderer class </strong>but this part is not something we will cover here. At this point our order DB row is mostly empty as we didn't define much, order items(line items in d7) data is not stored in commerce_order table, this can be found in commerce_order_item table and each item is referenced to order it belongs to. Cart items get added through </p>
+<pre>
+<code class="language-php">namespace Drupal\commerce_cart 
+
+class CartManager implements CartManagerInterface {</code></pre><p> there is <b>addOrderItem</b> method that fires on adding items to cart, there is also <b>updateOrderItem, </b>that updates items when for example you update number of items in cart.</p>
+<p>
+Moving on to next step, when we click checkout button we start to get into checkout process, which is just an abstraction for lots of forms. Depending on your checkout flow you will encounter different checkout panes, they can be custom created, or imported as part of some payment gateway but most commonly there will be default drupal commerce panes in default checkout flow so we will cover them here. <br />
+So first we will encounter billing info pane which is at </p>
+<pre>
+<code class="language-php">namespace Drupal\commerce_checkout\Plugin\Commerce\CheckoutPane
+
+class BillingInformation extends BillingInformationPaneBase {</code></pre><p>and in <strong>buildPaneForm</strong> there is an  inline_form which builds billing information form and collects data we enter, once we submit this form this data goes into db and is saved to commerce_order table as reference id. Similar thing happens with shipping info pane but a bit more complex and shipping reference is not saved in commerce_order table but is similarly referenced as commerce_order_item table to commerce_order. There is also <strong>contact information</strong> pane which just saves email to order when you are not logged in.<br />
+Also in this checkout step it is often or rather by default added payment information pane, this is pane which has story by itself and it needs special section.</p>
+<p><strong>So payment info pane</strong>, this is where we are dealing with payments. So dig into </p>
+<pre>
+<code class="language-php">namespace Drupal\commerce_payment\Plugin\Commerce\CheckoutPane 
+
+class PaymentInformation extends BillingInformationPaneBase {</code></pre><p>and see how form is built, buildPaneForm is checking for possible payment gateways for this order, </p>
+<pre>
+<code class="language-php">$payment_gateways = $payment_gateway_storage-&gt;loadMultipleForOrder($this-&gt;order);</code></pre><p>this line fetches all payments that pass all conditions for order we are dealing with and that can be set on admin of payment gateways through UI. Once we have available gateways, form is built so you can choose them with select option, with default gateway rendered, when you switch to other, then new default is rendered and set over previous one through ajax. This is also place where previously saved <strong>payment_methods</strong> are displayed, payment_method is tokenized data about user payment method, saved per particular user, so her we can reuse it for repeated purchase. They are created after this form is submitted, but once you come again to this pane, you can see previous ones used and saved.<br />
+Payment forms are created through buildPaymentMethodForm method, this is the part where we are calling particular payment gateway form with inline form</p>
+<pre>
+<code class="language-php">$inline_form = $this-&gt;inlineFormManager-&gt;createInstance('payment_gateway_form', ['operation' =&gt; 'add-payment-method',], $payment_method);</code></pre><p>
+this will check our payment gateway main class and its annotations, for example if we are using stripe, in </p>
+<pre>
+<code class="language-php">namespace Drupal\commerce_stripe\Plugin\Commerce\PaymentGateway 
+
+class Stripe extends OnsitePaymentGatewayBase implements StripeInterface {</code></pre><p>there is definition to where we can find "add-payment-method" form for this payment, it is here<br />
+ </p>
+<pre>
+<code class="language-php">  forms = {
+ *     "add-payment-method" = "Drupal\commerce_stripe\PluginForm\Stripe\PaymentMethodAddForm",
+ *   },</code></pre><p>For offsite payments this will be different and wont be rendered here in this pane. Once we submit this pane, we are triggering <strong>submitPaneForm</strong> which will ultimately<br />
+ set this 2 reference fields to order and this will be visible in commerce_order DB table</p>
+<pre>
+<code class="language-php">$this-&gt;order-&gt;set('payment_gateway', $payment_method-&gt;getPaymentGateway());
+$this-&gt;order-&gt;set('payment_method', $payment_method);</code></pre><p>
+Before all that, submit method will check if this gateway supports saving of payment method with</p>
+<pre>
+<code class="language-php">if ($payment_gateway-&gt;getPlugin() instanceof SupportsStoredPaymentMethodsInterface) {</code></pre><p>if not it will not use one and not save one to order, as this is not required, if it supports it, we will check do we reuse one or we use a freshly set one from form. Also if we are using saved payment method, then here it will be assigned to order along with billing which is associated with this payment method (so user doesn't have to enter that as well).</p>
+<p>Before we leave <strong>PaymentMethodAddForm class</strong>, lets check what it inherits, for stripe payment it is defined as<br />
+class PaymentMethodAddForm extends BasePaymentMethodAddForm which is alias for original PaymentMethodAddForm,<br />
+so lets check original PaymentMethodAddForm class in </p>
+<pre>
+<code class="language-php">namespace Drupal\commerce_payment\PluginForm
+
+class PaymentMethodAddForm extends FormBase implements ContainerInjectionInterface {</code></pre><p>it has important <wbr></wbr>buildConfigurationForm which calls buildCreditCardForm method, which is defined in this class but also overridden in Stripe PaymentMethodAddForm</p>
+<p>    if ($payment_method-&gt;bundle() == 'credit_card') {<br />
+      $form['payment_details'] = $this-&gt;buildCreditCardForm($<wbr></wbr>form['payment_details'], $form_state);<br />
+    }</p>
+<p>using this, we are using payment details to build a basic credit card form and in the end also to submit this details we get there with submitConfigurationForm, this submit is the one that is basically creating payment_method as we are calling</p>
+<pre>
+<code class="language-php">$payment_gateway_plugin-&gt;createPaymentMethod($payment_method, $values['payment_details']); </code></pre><p>method which is again defined per payment gateway, so in stripe it can be found in stripe class and what it does.</p>
+<p>Once we submit this forms there is review step and review pane, nothing much happens here, it is just for review and some payment gateways have put here 3DS offsite auth but I am more inclined to remove this step and just skip to the payment process step as this is the place the most important things happen, payments. So lets dive into</p>
+<pre>
+<code class="language-php">namespace Drupal\commerce_payment\Plugin\Commerce\CheckoutPane 
+
+class PaymentProcess extends CheckoutPaneBase {</code></pre><p>we are again interested in <strong>buildPaneForm</strong> method, this is where all logic is happening. So we are creating basic payment entity with</p>
+<pre>
+<code class="language-php">$payment = $payment_storage-&gt;create([</code></pre><p>and after that we are checking is it onsite or offsite or manual payment method and if it is onsite we have crucial method call here</p>
+<pre>
+<code class="language-php">$payment_gateway_plugin-&gt;createPayment($payment, $this-&gt;configuration['capture']);</code></pre><p>which calls main method in chosen payment gateway and is required by onsite payment interface, for example lets use stripe again where we go to Stripe class and then check createPayment method. This is where Stripe API is used and we make different calls to authorize or/and capture funds we need to get. We get response from remote site (stripe) and we can use this info to put into out payment entity and save it. In stripe class there is also capturePayment, voidPayment and refundPayment, these can be used for custom actions we can provide in our custom modules (modules for auto approval and capturing of orders) or used in admin UI forms to do those actions. Once this pane is done, we are going to final step of checkout, which is complete, in that moment our order has all the data filled in and on that last step we add some messages, surveys, logins for anonymous etc. Before we finish off, lets just check structure of payment entities and what is added there.</p>
+<p>So payment entity at </p>
+<pre>
+<code class="language-php">namespace Drupal\commerce_payment\Entity 
+
+class Payment extends ContentEntityBase implements PaymentInterface {</code></pre><p>lets skip all the other methods and go to baseFieldDefinitions method which defines our DB fields, <br />
+we have reference to payment_gateway and payment_method reference to we are using for this payment, then there is order_id reference field and most importantly <strong>remote_id </strong>string field, which is where we reference ID of remote payment, this ID will be used for capturing funds or refund/voids, there is also state field and other dates field that will complete this entity and information it stores. Payment gateway entity or rather commerce_payment_<wbr></wbr>gateway  is a config entity we are referencing from payment entity and as it is not content entity it doesn't define fields, it depends on config or particular payment gateways and where they are defined. Finally we have </p>
+<pre>
+<code class="language-php">namespace Drupal\commerce_payment\Entity
+
+class PaymentMethod extends ContentEntityBase implements PaymentMethodInterface {</code></pre><p>PaymentMethod class and entity, which is content entity and has entity reference field to saved payment methods, we have field for user it belongs to and billing_profile that is associated with this payment method. There is also remote_id info and expires field so we know when does this payment method expires, finally there are dates fields and field that stores info if this method is reusable, but this kind of beats the purpose of storing the method so its not clear why we should have this.</p>
+</div>
+      
+      <div class="field-wrapper">
+              <div><a href="/drupaldump/taxonomy/term/24" hreflang="en">Drupal 8</a></div>
+          </div>
+  
+      <div class="field-wrapper">
+              <div><a href="/drupaldump/posts-about/modules" hreflang="en">Modules</a></div>
+          </div>
+  
+            <div class="field-wrapper"><div id="disqus_thread"><noscript>
+  <p>
+    <a href="http://drupaldump.disqus.com/">View the discussion thread.</a>
+  </p>
+</noscript>
+</div>
+</div>
+      </p>
+                </section>
+  </article>
+</main>
+
+  </div>
+
+  </div>
+
+                    </div>
+    </main>
+            <footer role="contentinfo">
+              <div>
+    <div id="block-home">
+  
+    
+      
+            <div class="body field"><p><a href="/drupaldump/">Finding The Way Home</a> @ 2011 - 2020</p>
+</div>
+      
+  </div>
+<div id="block-casper-powered" role="complementary">
+  
+    
+      <span>Powered by <a href="https://www.drupal.org">Drupal</a></span>
+  </div>
+
+  </div>
+
+        </footer>
+    </div>
+</body>
+
+  </div>
+
+    
+    <script type="application/json" data-drupal-selector="drupal-settings-json">{"path":{"baseUrl":"/drupaldump/","scriptPath":null,"pathPrefix":"","currentPath":"node\/528","currentPathIsAdmin":false,"isFront":false,"currentLanguage":"en"},"pluralDelimiter":"\u0003","suppressDeprecationErrors":true,"google_analytics":{"account":"UA-25017378-1","trackOutbound":true,"trackMailto":true,"trackDownload":true,"trackDownloadExtensions":"7z|aac|arc|arj|asf|asx|avi|bin|csv|doc(x|m)?|dot(x|m)?|exe|flv|gif|gz|gzip|hqx|jar|jpe?g|js|mp(2|3|4|e?g)|mov(ie)?|msi|msp|pdf|phps|png|ppt(x|m)?|pot(x|m)?|pps(x|m)?|ppam|sld(x|m)?|thmx|qtm?|ra(m|r)?|sea|sit|tar|tgz|torrent|txt|wav|wma|wmv|wpd|xls(x|m|b)?|xlt(x|m)|xlam|xml|z|zip"},"disqusComments":"drupaldump","disqus":{"domain":"drupaldump","url":"http:\/\/95.216.6.96:8088\/order-life-cycle-drupal-commerce","title":"Order life cycle in drupal commerce","identifier":"node\/528","disable_mobile":false},"user":{"uid":0,"permissionsHash":"61d0b3aee71a501d8526c4a3ac79a2c1e6f537791b4ed94adeca4bcbf97c542c"}}</script>
+<script src="/drupaldump/sites/default/files/js/js_2TI3DKoAde-tDzv3_jAE9uNOl4laF37h3D1iN4gXU_w.js"></script>
+
+</html>

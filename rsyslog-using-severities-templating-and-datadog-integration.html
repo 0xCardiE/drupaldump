@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" prefix="content: http://purl.org/rss/1.0/modules/content/  dc: http://purl.org/dc/terms/  foaf: http://xmlns.com/foaf/0.1/  og: http://ogp.me/ns#  rdfs: http://www.w3.org/2000/01/rdf-schema#  schema: http://schema.org/  sioc: http://rdfs.org/sioc/ns#  sioct: http://rdfs.org/sioc/types#  skos: http://www.w3.org/2004/02/skos/core#  xsd: http://www.w3.org/2001/XMLSchema# ">
+  <head>
+<meta charset="utf-8" />
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-25017378-1"></script>
+<script>window.dataLayer = window.dataLayer || [];function gtag(){dataLayer.push(arguments)};gtag("js", new Date());gtag("config", "UA-25017378-1", {"groups":"default","anonymize_ip":true,"allow_ad_personalization_signals":false});</script>
+<meta name="Generator" content="Drupal 8 (https://www.drupal.org)" />
+<meta name="MobileOptimized" content="width" />
+<meta name="HandheldFriendly" content="true" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="shortcut icon" href="/drupaldump/sites/default/files/12065725081662529858mszinger_Recycle_simple.ico" type="image/vnd.microsoft.icon" />
+<link rel="canonical" href="/drupaldump/rsyslog-using-severities-templating-and-datadog-integration" />
+<link rel="shortlink" href="/drupaldump/node/558" />
+<link rel="revision" href="/drupaldump/rsyslog-using-severities-templating-and-datadog-integration" />
+
+    <title>Rsyslog using severities, templating and datadog integration | DrupalDump.com</title>
+    <link rel="stylesheet" media="all" href="/drupaldump/sites/default/files/css/css_AlJtUK5t4kiN78bTuJmj-RlnrwdMAgZ7cSkPQ8kQg08.css" />
+<link rel="stylesheet" media="all" href="/drupaldump/sites/default/files/css/css_bIJWoj7ddw1nKKt8k0N7ZLw5VA0VkhLoweEPaHldh1E.css" />
+
+    
+<!--[if lte IE 8]>
+<script src="/drupaldump/sites/default/files/js/js_VtafjXmRvoUgAzqzYTA3Wrjkx9wcWhjP0G4ZnnqRamA.js"></script>
+<![endif]-->
+
+        <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Merriweather:300,700,700italic,300italic|Open+Sans:700,400" />
+  </head>
+    <a href="#main-content" class="visually-hidden focusable skip-link">
+      Skip to main content
+    </a>
+    
+      <div class="dialog-off-canvas-main-canvas" data-off-canvas-main-canvas>
+    <body class="nav-closed">      <div>
+    <nav role="navigation" aria-labelledby="block-casper-main-menu-menu" id="block-casper-main-menu">
+            
+  <h2 class="visually-hidden" id="block-casper-main-menu-menu">Main navigation</h2>
+  
+
+        
+                    <div class="nav">
+        <h3 class="nav-title">Menu</h3>
+        <a href="#" class="nav-close">
+            <span class="hidden">Close</span>
+        </a>
+        <ul>
+                                        <li role="presentation" >
+                <a href="/drupaldump/" data-drupal-link-system-path="&lt;front&gt;">Home</a>
+                            </li>
+                                <li role="presentation" >
+                <a href="/drupaldump/posts-about/modules" data-drupal-link-system-path="taxonomy/term/17">Modules</a>
+                            </li>
+                                <li role="presentation" >
+                <a href="/drupaldump/posts-about/devops" data-drupal-link-system-path="taxonomy/term/19">System</a>
+                            </li>
+                                <li role="presentation" >
+                <a href="/drupaldump/posts-about/theming" data-drupal-link-system-path="taxonomy/term/10">Theming</a>
+                            </li>
+                                <li role="presentation" >
+                <a href="/drupaldump/contact/feedback" data-drupal-link-system-path="contact/feedback">Contact</a>
+                            </li>
+                </ul>
+        </div>
+    
+
+
+  </nav>
+
+  </div>
+
+<span class="nav-cover"></span>
+<div class="site-wrapper">
+<header class="main-header post-head no-cover" xmlns="http://www.w3.org/1999/html">
+    <nav class="main-nav  clearfix">
+                <a class="blog-logo" href="/drupaldump/"><img src="/drupaldump/sites/default/files/theme/backgrounds/drupal 8 logo isolated CMYK 72.png" /></a>
+                <a class="menu-button icon-menu" href="#"><span class="word">Menu</span></a>
+    </nav>
+</header>
+    
+<div class="highlighted">
+  <div>
+    <div data-drupal-messages-fallback class="hidden"></div>
+
+  </div>
+
+</div>
+    <main role="main">
+        <a id="main-content" tabindex="-1"></a>
+        <div class="layout-content">
+                              <div>
+    <div id="block-casper-content">
+  
+    
+      
+<main class="content" role="main">
+  <article class="post page">
+      <header class="post-header">
+                    <h1 class="post-title"><span class="field-wrapper">Rsyslog using severities, templating and datadog integration</span>
+</h1>
+          	<p class="post-date">Thu, 04/30/2020</p>	
+      </header>
+      <section class="post-content">
+                    <p>
+            <div class="body field"><h3>Basic setup</h3>
+<p>
+So I will assume you installed syslog and have some default config running for it with syslog_facility set to log_local0. With that lets assume you are using rsyslog and you have config for it in</p>
+<pre>
+<code class="language-bash">/etc/rsyslog.conf</code></pre><p>which could have all config in this file or separated config files that are included with</p>
+<pre>
+<code class="language-bash">$IncludeConfig /etc/rsyslog.d/*.conf</code></pre><p>So we will use that and add drupal.conf in rsyslog.d directory whit following content</p>
+<pre>
+<code class="language-php">local0.panic;local0.alert;local0.crit;local0.err;local0.warning;  -/var/log/drupal-alert.log
+</code></pre><p>This code will make that specific drupal severities are logged, those that need alerting, from panic to warning, if you want to log all, just write local0.* and all will be sent to log.  You can also have several log lines/files where you log stuff, like one for warnings and one for just errors or whatever you like and each can be used with any other tool and 3rd party integration</p>
+<h3>Severities</h3>
+<p>Drupal outputs severities from emergency to debug</p>
+<pre>
+<code class="language-php">$severity = RfcLogLevel::EMERGENCY;
+$severity = RfcLogLevel::ALERT;
+$severity = RfcLogLevel::CRITICAL;
+$severity = RfcLogLevel::ERROR;
+$severity = RfcLogLevel::WARNING;
+$severity = RfcLogLevel::NOTICE;
+$severity = RfcLogLevel::INFO;
+$severity = RfcLogLevel::DEBUG;
+$levels = RfcLogLevel::getLevels();</code></pre><p>with method</p>
+<pre>
+<code class="language-php">$logger-&gt;log($level, $message);</code></pre><p>which will send whole drupal message and the severity(level) to local0 facility. That is one of the reasons why there is no !severity token in default message format for syslog</p>
+<pre>
+<code class="language-bash">!base_url|!timestamp|!type|!ip|!request_uri|!referer|!uid|!link|!message</code></pre><p>although you can add it with !severity wherever you want. <br />
+Some people do as they don't get it outputted in their logs, but this is due to rsyslog template that is used for outputting logs, and changing the template you can include severity, without adding it to drupal message.</p>
+<h3>Rsyslog Templating</h3>
+<p>On both Ubuntu the default syslog format is set to <a href="https://rsyslog-5-8-6-doc.neocities.org/rsyslog_conf_templates.html">RSYSLOG_TraditionalFileFormat</a> with its low-precision timestamps and unstructured message field.<br />
+If you wanted more detail or structure you could use one of the other built-in formats like <a href="http://www.rsyslog.com/doc/v5-stable/configuration/templates.html">RSYSLOG_SyslogProtocol23Format</a> or create your own.<br />
+So for above example you would put</p>
+<pre>
+<code class="language-bash">local0.panic;local0.alert;local0.crit;local0.err;local0.warning;local0.notice  -/var/log/drupal-alert.log; RSYSLOG_SyslogProtocol23Format
+</code></pre><p>code like this, adding template name after log file declaration. Also when doing this, you need to restart service for changes to take effect.</p>
+<pre>
+<code class="language-bash">sudo service rsyslog restart</code></pre><p>after that you will have completely different log output in your logs.</p>
+<p>Last thing we can do is our custom templates, which we define in the same conf file like</p>
+<pre>
+<code class="language-bash">$template precise,"%syslogpriority%,%syslogfacility%,%timegenerated::fulltime%,%HOSTNAME%,%syslogtag%,%msg%\n"
+
+local0.panic;local0.alert;local0.crit;local0.err;local0.warning;local0.notice  -/var/log/drupal-alert.log; precise
+</code></pre><p>and now we have our output look like whatever we want it to look. It can even be an SQL that would be used to insert data into DB.</p>
+<pre>
+<code class="language-bash">$template dbFormat,"insert into SystemEvents (Message, Facility,FromHost, Priority, DeviceReportedTime, ReceivedAt, InfoUnitID, SysLogTag) values ('%msg%', %syslogfacility%, '%HOSTNAME%',%syslogpriority%, '%timereported:::date-mysql%', '%timegenerated:::date-mysql%', %iut%, '%syslogtag%')",sql</code></pre><p>
+What we want to do is make a modern format template, used in many places and that is JSON. So we will try it like this</p>
+<pre>
+<code class="language-bash">template(name="outfmt" type="list" option.jsonf="on") {
+         property(outname="@timestamp" name="timereported" dateFormat="rfc3339" format="jsonf")
+         property(outname="host" name="hostname" format="jsonf")
+         property(outname="severity" name="syslogseverity-text" format="jsonf")
+         property(outname="message" name="msg" format="jsonf")
+ }</code></pre><p>and then add this template to </p>
+<pre>
+<code class="language-bash">local0.panic;local0.alert;local0.crit;local0.err;local0.warning;local0.notice  -/var/log/drupal-alert.log; outfmt</code></pre><p>or just use local0.* /var/log/drupal-alert.log; outfmt to cover all severites.</p>
+<p>So now we should have completely different output which should correspond to JSON format, ohh and yes this is newer templating process, which can be seen here<br />
+<a href="https://www.rsyslog.com/doc/v8-stable/configuration/templates.html" target="_blank">https://www.rsyslog.com/doc/v8-stable/configuration/templates.html</a><br />
+The one with the $template variable can also be used, but it is considered legacy. New templating with template() statement has few types available, above is list type, string type which looks like legacy can also be used, there are also plugin and subtree types, "list" will be mostly used and which properties can be set for that type you can see in before mentioned link.</p>
+<p>Also to get full list of <strong>rsyslog properties then can be used can be find here </strong><a href="https://www.rsyslog.com/doc/master/configuration/properties.html" target="_blank">https://www.rsyslog.com/doc/master/configuration/properties.html</a></p>
+<h3>Datadog</h3>
+<p>Lets use this logs to send it to datadog, after you installed service to your machine, you should go for integration configuration, which should be <strong>/etc/datadog-agent/conf.d/ </strong>here you can make <strong>/etc/datadog-agent/conf.d/drupal.d</strong> directory and add to it conf.yaml file. Fill it in with these lines so it is added to datadog config,</p>
+<pre>
+<code class="language-bash">init_config:
+
+instances:
+
+## Log section
+logs:
+
+-   path: /var/log/drupal-alert.log
+    service: drupal
+    source: my_site
+    sourcecategory: drupal
+    type: file</code></pre><p>After creating this new config, you should restart datadog agent with</p>
+<pre>
+<code class="language-bash">sudo service datadog-agent restart</code></pre><p>To see how I setup datadog through UI, check more in this post:</p>
+<p><a href="https://www.drupaldump.com/setting-datadog-alert-drupal-logs">https://www.drupaldump.com/setting-datadog-alert-drupal-logs</a></p>
+<h3>Extras</h3>
+<p>1.If you are using some older versions of rsyslog, you maybe won't be able to use newer options like auto formatting of JSON (option.jsonf="on"), so you will need to make it by yourself. So do it like this</p>
+<pre>
+<code class="language-bash">template(name="dr_json" type="list" option.json="on") {
+  constant(value="{")
+  constant(value="\"message\":\"") property(name="msg" regex.expression="\\|(.*)" regex.type="ERE" )
+  constant(value="\",\"host\":\"") property(name="hostname")
+  constant(value="\",\"severity\":\"") property(name="syslogseverity-text")
+  constant(value="\",\"type\":\"") property(name="msg" regex.expression="[^|]*" regex.type="ERE" )
+  constant(value="\"}\n")
+}</code></pre><p>
+Also I used regex to extract type of logs to attribute and message to be without it.</p>
+<p>2. This table might come in handy to know which severities you can get from rsyslog,  the keywords error, warn and panic are deprecated and should not be used anymore.</p>
+<table id="table1l">
+<thead>
+<tr>
+<th>Code</th>
+<th>Rsyslog</th>
+<th>Severity</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>emerg, panic</td>
+<td>Emergency: system is unusable</td>
+</tr>
+<tr>
+<td>1</td>
+<td>alert</td>
+<td>Alert: action must be taken immediately</td>
+</tr>
+<tr>
+<td>2</td>
+<td>crit</td>
+<td>Critical: critical conditions</td>
+</tr>
+<tr>
+<td>3</td>
+<td>err, error</td>
+<td>Error: error conditions</td>
+</tr>
+<tr>
+<td>4</td>
+<td>warning, warn</td>
+<td>Warning: warning conditions</td>
+</tr>
+<tr>
+<td>5</td>
+<td>notice</td>
+<td>Notice: normal but significant condition</td>
+</tr>
+<tr>
+<td>6</td>
+<td>info</td>
+<td>Informational: informational messages</td>
+</tr>
+<tr>
+<td>7</td>
+<td>debug</td>
+<td>Debug: debug-level messages</td>
+</tr>
+</tbody>
+</table>
+<p>3. One more extra tip is if you want to have an alias of your host added to log, edit your</p>
+<p>/etc/rsyslog.conf  and add this variable, so you dont have output like <strong>host: localhost</strong> but <strong>host: hex02</strong></p>
+<pre>
+<code>$LocalHostName hex02</code></pre></div>
+      
+      <div class="field-wrapper">
+              <div><a href="/drupaldump/drupal-7" hreflang="en">Drupal 7</a></div>
+              <div><a href="/drupaldump/taxonomy/term/24" hreflang="en">Drupal 8</a></div>
+          </div>
+  
+      <div class="field-wrapper">
+              <div><a href="/drupaldump/posts-about/devops" hreflang="en">Devops</a></div>
+          </div>
+  
+            <div class="field-wrapper"><div id="disqus_thread"><noscript>
+  <p>
+    <a href="http://drupaldump.disqus.com/">View the discussion thread.</a>
+  </p>
+</noscript>
+</div>
+</div>
+      </p>
+                </section>
+  </article>
+</main>
+
+  </div>
+
+  </div>
+
+                    </div>
+    </main>
+            <footer role="contentinfo">
+              <div>
+    <div id="block-home">
+  
+    
+      
+            <div class="body field"><p><a href="/drupaldump/">Finding The Way Home</a> @ 2011 - 2020</p>
+</div>
+      
+  </div>
+<div id="block-casper-powered" role="complementary">
+  
+    
+      <span>Powered by <a href="https://www.drupal.org">Drupal</a></span>
+  </div>
+
+  </div>
+
+        </footer>
+    </div>
+</body>
+
+  </div>
+
+    
+    <script type="application/json" data-drupal-selector="drupal-settings-json">{"path":{"baseUrl":"/drupaldump/","scriptPath":null,"pathPrefix":"","currentPath":"node\/558","currentPathIsAdmin":false,"isFront":false,"currentLanguage":"en"},"pluralDelimiter":"\u0003","suppressDeprecationErrors":true,"google_analytics":{"account":"UA-25017378-1","trackOutbound":true,"trackMailto":true,"trackDownload":true,"trackDownloadExtensions":"7z|aac|arc|arj|asf|asx|avi|bin|csv|doc(x|m)?|dot(x|m)?|exe|flv|gif|gz|gzip|hqx|jar|jpe?g|js|mp(2|3|4|e?g)|mov(ie)?|msi|msp|pdf|phps|png|ppt(x|m)?|pot(x|m)?|pps(x|m)?|ppam|sld(x|m)?|thmx|qtm?|ra(m|r)?|sea|sit|tar|tgz|torrent|txt|wav|wma|wmv|wpd|xls(x|m|b)?|xlt(x|m)|xlam|xml|z|zip"},"disqusComments":"drupaldump","disqus":{"domain":"drupaldump","url":"http:\/\/95.216.6.96:8088\/rsyslog-using-severities-templating-and-datadog-integration","title":"Rsyslog using severities, templating and datadog integration","identifier":"node\/558","disable_mobile":false},"user":{"uid":0,"permissionsHash":"61d0b3aee71a501d8526c4a3ac79a2c1e6f537791b4ed94adeca4bcbf97c542c"}}</script>
+<script src="/drupaldump/sites/default/files/js/js_2TI3DKoAde-tDzv3_jAE9uNOl4laF37h3D1iN4gXU_w.js"></script>
+
+</html>

@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" prefix="content: http://purl.org/rss/1.0/modules/content/  dc: http://purl.org/dc/terms/  foaf: http://xmlns.com/foaf/0.1/  og: http://ogp.me/ns#  rdfs: http://www.w3.org/2000/01/rdf-schema#  schema: http://schema.org/  sioc: http://rdfs.org/sioc/ns#  sioct: http://rdfs.org/sioc/types#  skos: http://www.w3.org/2004/02/skos/core#  xsd: http://www.w3.org/2001/XMLSchema# ">
+  <head>
+<meta charset="utf-8" />
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-25017378-1"></script>
+<script>window.dataLayer = window.dataLayer || [];function gtag(){dataLayer.push(arguments)};gtag("js", new Date());gtag("config", "UA-25017378-1", {"groups":"default","anonymize_ip":true,"allow_ad_personalization_signals":false});</script>
+<meta name="Generator" content="Drupal 8 (https://www.drupal.org)" />
+<meta name="MobileOptimized" content="width" />
+<meta name="HandheldFriendly" content="true" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="shortcut icon" href="/drupaldump/sites/default/files/12065725081662529858mszinger_Recycle_simple.ico" type="image/vnd.microsoft.icon" />
+<link rel="canonical" href="/drupaldump/best-drupal-local-development-environments-based-docker" />
+<link rel="shortlink" href="/drupaldump/node/419" />
+<link rel="revision" href="/drupaldump/best-drupal-local-development-environments-based-docker" />
+
+    <title>Best Drupal local development environments based on Docker | DrupalDump.com</title>
+    <link rel="stylesheet" media="all" href="/drupaldump/sites/default/files/css/css_AlJtUK5t4kiN78bTuJmj-RlnrwdMAgZ7cSkPQ8kQg08.css" />
+<link rel="stylesheet" media="all" href="/drupaldump/sites/default/files/css/css_bIJWoj7ddw1nKKt8k0N7ZLw5VA0VkhLoweEPaHldh1E.css" />
+
+    
+<!--[if lte IE 8]>
+<script src="/drupaldump/sites/default/files/js/js_VtafjXmRvoUgAzqzYTA3Wrjkx9wcWhjP0G4ZnnqRamA.js"></script>
+<![endif]-->
+
+        <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Merriweather:300,700,700italic,300italic|Open+Sans:700,400" />
+  </head>
+    <a href="#main-content" class="visually-hidden focusable skip-link">
+      Skip to main content
+    </a>
+    
+      <div class="dialog-off-canvas-main-canvas" data-off-canvas-main-canvas>
+    <body class="nav-closed">      <div>
+    <nav role="navigation" aria-labelledby="block-casper-main-menu-menu" id="block-casper-main-menu">
+            
+  <h2 class="visually-hidden" id="block-casper-main-menu-menu">Main navigation</h2>
+  
+
+        
+                    <div class="nav">
+        <h3 class="nav-title">Menu</h3>
+        <a href="#" class="nav-close">
+            <span class="hidden">Close</span>
+        </a>
+        <ul>
+                                        <li role="presentation" >
+                <a href="/drupaldump/" data-drupal-link-system-path="&lt;front&gt;">Home</a>
+                            </li>
+                                <li role="presentation" >
+                <a href="/drupaldump/posts-about/modules" data-drupal-link-system-path="taxonomy/term/17">Modules</a>
+                            </li>
+                                <li role="presentation" >
+                <a href="/drupaldump/posts-about/devops" data-drupal-link-system-path="taxonomy/term/19">System</a>
+                            </li>
+                                <li role="presentation" >
+                <a href="/drupaldump/posts-about/theming" data-drupal-link-system-path="taxonomy/term/10">Theming</a>
+                            </li>
+                                <li role="presentation" >
+                <a href="/drupaldump/contact/feedback" data-drupal-link-system-path="contact/feedback">Contact</a>
+                            </li>
+                </ul>
+        </div>
+    
+
+
+  </nav>
+
+  </div>
+
+<span class="nav-cover"></span>
+<div class="site-wrapper">
+<header class="main-header post-head no-cover" xmlns="http://www.w3.org/1999/html">
+    <nav class="main-nav  clearfix">
+                <a class="blog-logo" href="/drupaldump/"><img src="/drupaldump/sites/default/files/theme/backgrounds/drupal 8 logo isolated CMYK 72.png" /></a>
+                <a class="menu-button icon-menu" href="#"><span class="word">Menu</span></a>
+    </nav>
+</header>
+    
+<div class="highlighted">
+  <div>
+    <div data-drupal-messages-fallback class="hidden"></div>
+
+  </div>
+
+</div>
+    <main role="main">
+        <a id="main-content" tabindex="-1"></a>
+        <div class="layout-content">
+                              <div>
+    <div id="block-casper-content">
+  
+    
+      
+<main class="content" role="main">
+  <article class="post page">
+      <header class="post-header">
+                    <h1 class="post-title"><span class="field-wrapper">Best Drupal local development environments based on Docker</span>
+</h1>
+          	<p class="post-date">Thu, 08/30/2018</p>	
+      </header>
+      <section class="post-content">
+                    <p>
+            <div class="body field"><p>You can always start your own dockerfile and docker compose configurations but there are really good prebuilt solutions that can get you start right away. I took a look at top 3 in my opinion and here they are.</p>
+<p><strong>Docker4Drupal</strong> by Wodby <a href="https://wodby.com/docs/stacks/drupal/">https://wodby.com/docs/stacks/drupal/</a><br />
+<strong>Docksal</strong> by FFW <a href="https://docs.docksal.io/en/master/#what-is-docksal">https://docs.docksal.io/en/master/#what-is-docksal</a><br />
+and<br />
+<strong>Lando</strong> by Tandem <a href="https://docs.devwithlando.io/">https://docs.devwithlando.io/</a></p>
+<p>I am linking to their docs as from there you will be able to learn about them, try them out and decide which one to use.  All solutions also have stacks ready for other projects, like wordpress, magento, plain lamp/lemp etc</p>
+<p>So <strong>Docker4Drupal</strong> is most basic of the 3, you basically get "docker compose" template that you can edit and spin up, you have big set of containers you can choose from so anything you need you will probably find there. Also nice addition for mac users is that they integrate <a href="http://docker-sync.io">docker-sync</a> so you can have much faster file synching that native one, which is slow. Other 2 don't have this solution added. More on mac file performance and tuning can be find here <a href="https://docs.docker.com/docker-for-mac/osxfs-caching/">https://docs.docker.com/docker-for-mac/osxfs-caching/</a></p>
+<p><strong>Docksal </strong>is more robust solution and an abstraction on docker, you will have containers and all but you will be running things with "fin" command, like "fin project start".  Docs are pretty good and for each project you get a boilerplate so before spinning your containers you can set your environment variables in docksal.env file <a href="https://github.com/docksal/drupal8/blob/master/.docksal/docksal.env">https://github.com/docksal/drupal8/blob/master/.docksal/docksal.env</a> or make docker overrides in docksal.yml <a href="https://github.com/docksal/drupal8/blob/master/.docksal/docksal.yml">https://github.com/docksal/drupal8/blob/master/.docksal/docksal.yml</a> so you have some different stack, by default you will get plain LAMP. Also if you need different tools and services like, redis, varnish, drupal console etc you will need to add that here. <br />
+By default you will get drush and drupal console working and drupal site installed and ready to run. Docs are good and with a day of research you should be good to go and use docksal for your work, only thing is that in docs you wont get any info on boilerplates, to get them you will need to go to main site and get github links there <a href="https://docksal.io/boilerplates">https://docksal.io/boilerplates</a>, they have large variety of boilerplates for all kind of projects.</p>
+<p><strong>Lando </strong>is similar robust solution like Docksal. Solution is also not limited just to Drupal and has vide range of "recipes" as they call it for starting a project. Here you have similar setup as Docksal, you choose recipe and then use defaults if non overrides are provided, if there are you can easly make them as you can see here in <strong>lando.yml</strong> file<br />
+<a href="https://github.com/lando/lando/blob/80454d184e7a0108c825022edf87c19693eea2b3/examples/drupal8/.lando.yml">https://github.com/lando/lando/blob/80454d184e7a0108c825022edf87c19693e…</a><br />
+Out of the box Lando is powerful, you get drush, drupal console, db import/export, composer, php, mysql toolings, which is probably everything you need for development, it works right out of the box. You dont get full drupal installation here out of the box, so you will run the process yourself, this is more by choice as automation for that could be done, there are post start events in Lando so you could pin there command to install drupal with parameters of your choice.<br />
+Commands are also run through lando, so you will have "lando drush status" etc<br />
+Docs are good as mentioned before and this looks like a complete solution for local drupal environment based on docker.<br />
+I did have a bit more problems with setting lando up and some instability whereas docksal run more smoothly.</p>
+<p>All solutions have part for CI and deployment but info on this will be in some other post.</p>
+<p>In the end all solutions are good, if you are on linux :) on Mac I used them a lot, all of them and because of file synching problems on large projects I gave up and went back to <a href="https://www.drupalvm.com/">DrupalVM which uses vagrant and has much less problems with file synching and speed</a> on mac OS.</p>
+</div>
+      
+      <div class="field-wrapper">
+              <div><a href="/drupaldump/taxonomy/term/24" hreflang="en">Drupal 8</a></div>
+          </div>
+  
+      <div class="field-wrapper">
+              <div><a href="/drupaldump/posts-about/docker" hreflang="en">Docker</a></div>
+          </div>
+  
+            <div class="field-wrapper"><div id="disqus_thread"><noscript>
+  <p>
+    <a href="http://drupaldump.disqus.com/">View the discussion thread.</a>
+  </p>
+</noscript>
+</div>
+</div>
+      </p>
+                </section>
+  </article>
+</main>
+
+  </div>
+
+  </div>
+
+                    </div>
+    </main>
+            <footer role="contentinfo">
+              <div>
+    <div id="block-home">
+  
+    
+      
+            <div class="body field"><p><a href="/drupaldump/">Finding The Way Home</a> @ 2011 - 2020</p>
+</div>
+      
+  </div>
+<div id="block-casper-powered" role="complementary">
+  
+    
+      <span>Powered by <a href="https://www.drupal.org">Drupal</a></span>
+  </div>
+
+  </div>
+
+        </footer>
+    </div>
+</body>
+
+  </div>
+
+    
+    <script type="application/json" data-drupal-selector="drupal-settings-json">{"path":{"baseUrl":"/drupaldump/","scriptPath":null,"pathPrefix":"","currentPath":"node\/419","currentPathIsAdmin":false,"isFront":false,"currentLanguage":"en"},"pluralDelimiter":"\u0003","suppressDeprecationErrors":true,"google_analytics":{"account":"UA-25017378-1","trackOutbound":true,"trackMailto":true,"trackDownload":true,"trackDownloadExtensions":"7z|aac|arc|arj|asf|asx|avi|bin|csv|doc(x|m)?|dot(x|m)?|exe|flv|gif|gz|gzip|hqx|jar|jpe?g|js|mp(2|3|4|e?g)|mov(ie)?|msi|msp|pdf|phps|png|ppt(x|m)?|pot(x|m)?|pps(x|m)?|ppam|sld(x|m)?|thmx|qtm?|ra(m|r)?|sea|sit|tar|tgz|torrent|txt|wav|wma|wmv|wpd|xls(x|m|b)?|xlt(x|m)|xlam|xml|z|zip"},"disqusComments":"drupaldump","disqus":{"domain":"drupaldump","url":"http:\/\/95.216.6.96:8088\/best-drupal-local-development-environments-based-docker","title":"Best Drupal local development environments based on Docker","identifier":"node\/419","disable_mobile":false},"user":{"uid":0,"permissionsHash":"61d0b3aee71a501d8526c4a3ac79a2c1e6f537791b4ed94adeca4bcbf97c542c"}}</script>
+<script src="/drupaldump/sites/default/files/js/js_2TI3DKoAde-tDzv3_jAE9uNOl4laF37h3D1iN4gXU_w.js"></script>
+
+</html>

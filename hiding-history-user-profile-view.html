@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" prefix="content: http://purl.org/rss/1.0/modules/content/  dc: http://purl.org/dc/terms/  foaf: http://xmlns.com/foaf/0.1/  og: http://ogp.me/ns#  rdfs: http://www.w3.org/2000/01/rdf-schema#  schema: http://schema.org/  sioc: http://rdfs.org/sioc/ns#  sioct: http://rdfs.org/sioc/types#  skos: http://www.w3.org/2004/02/skos/core#  xsd: http://www.w3.org/2001/XMLSchema# ">
+  <head>
+<meta charset="utf-8" />
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-25017378-1"></script>
+<script>window.dataLayer = window.dataLayer || [];function gtag(){dataLayer.push(arguments)};gtag("js", new Date());gtag("config", "UA-25017378-1", {"groups":"default","anonymize_ip":true,"allow_ad_personalization_signals":false});</script>
+<meta name="Generator" content="Drupal 8 (https://www.drupal.org)" />
+<meta name="MobileOptimized" content="width" />
+<meta name="HandheldFriendly" content="true" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="shortcut icon" href="/drupaldump/sites/default/files/12065725081662529858mszinger_Recycle_simple.ico" type="image/vnd.microsoft.icon" />
+<link rel="canonical" href="/drupaldump/hiding-history-user-profile-view" />
+<link rel="shortlink" href="/drupaldump/node/53" />
+<link rel="revision" href="/drupaldump/hiding-history-user-profile-view" />
+
+    <title>Hiding History in User profile view | DrupalDump.com</title>
+    <link rel="stylesheet" media="all" href="/drupaldump/sites/default/files/css/css_AlJtUK5t4kiN78bTuJmj-RlnrwdMAgZ7cSkPQ8kQg08.css" />
+<link rel="stylesheet" media="all" href="/drupaldump/sites/default/files/css/css_bIJWoj7ddw1nKKt8k0N7ZLw5VA0VkhLoweEPaHldh1E.css" />
+
+    
+<!--[if lte IE 8]>
+<script src="/drupaldump/sites/default/files/js/js_VtafjXmRvoUgAzqzYTA3Wrjkx9wcWhjP0G4ZnnqRamA.js"></script>
+<![endif]-->
+
+        <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Merriweather:300,700,700italic,300italic|Open+Sans:700,400" />
+  </head>
+    <a href="#main-content" class="visually-hidden focusable skip-link">
+      Skip to main content
+    </a>
+    
+      <div class="dialog-off-canvas-main-canvas" data-off-canvas-main-canvas>
+    <body class="nav-closed">      <div>
+    <nav role="navigation" aria-labelledby="block-casper-main-menu-menu" id="block-casper-main-menu">
+            
+  <h2 class="visually-hidden" id="block-casper-main-menu-menu">Main navigation</h2>
+  
+
+        
+                    <div class="nav">
+        <h3 class="nav-title">Menu</h3>
+        <a href="#" class="nav-close">
+            <span class="hidden">Close</span>
+        </a>
+        <ul>
+                                        <li role="presentation" >
+                <a href="/drupaldump/" data-drupal-link-system-path="&lt;front&gt;">Home</a>
+                            </li>
+                                <li role="presentation" >
+                <a href="/drupaldump/posts-about/modules" data-drupal-link-system-path="taxonomy/term/17">Modules</a>
+                            </li>
+                                <li role="presentation" >
+                <a href="/drupaldump/posts-about/devops" data-drupal-link-system-path="taxonomy/term/19">System</a>
+                            </li>
+                                <li role="presentation" >
+                <a href="/drupaldump/posts-about/theming" data-drupal-link-system-path="taxonomy/term/10">Theming</a>
+                            </li>
+                                <li role="presentation" >
+                <a href="/drupaldump/contact/feedback" data-drupal-link-system-path="contact/feedback">Contact</a>
+                            </li>
+                </ul>
+        </div>
+    
+
+
+  </nav>
+
+  </div>
+
+<span class="nav-cover"></span>
+<div class="site-wrapper">
+<header class="main-header post-head no-cover" xmlns="http://www.w3.org/1999/html">
+    <nav class="main-nav  clearfix">
+                <a class="blog-logo" href="/drupaldump/"><img src="/drupaldump/sites/default/files/theme/backgrounds/drupal 8 logo isolated CMYK 72.png" /></a>
+                <a class="menu-button icon-menu" href="#"><span class="word">Menu</span></a>
+    </nav>
+</header>
+    
+<div class="highlighted">
+  <div>
+    <div data-drupal-messages-fallback class="hidden"></div>
+
+  </div>
+
+</div>
+    <main role="main">
+        <a id="main-content" tabindex="-1"></a>
+        <div class="layout-content">
+                              <div>
+    <div id="block-casper-content">
+  
+    
+      
+<main class="content" role="main">
+  <article class="post page">
+      <header class="post-header">
+                    <h1 class="post-title"><span class="field-wrapper">Hiding History in User profile view</span>
+</h1>
+          	<p class="post-date">Fri, 12/23/2011</p>	
+      </header>
+      <section class="post-content">
+                    <p>
+            <div class="body field"><p>This option of showing user history seems more obsolite then useful, se lets hide it.</p>
+<p>For Drupal 6, copy this file from your /sites/modules/user directory:<br />
+user-profile-category.tpl.php, put the copy into your custom theme directory and within that file, replace the code with this</p>
+<pre><code class="language-php">
+&lt;?php if ($title &amp;&amp; $title != t(History)) : ?&gt;
+  &lt;h3&gt;&lt;?php print $title; ?&gt;&lt;/h3&gt;
+&lt;?php endif; ?&gt;
+
+&lt;?php if ($title != t(History)) : ?&gt;
+&lt;dl&lt;?php print $attributes; ?&gt;&gt;
+  &lt;?php print $profile_items; ?&gt;
+&lt;/dl&gt;
+&lt;?php endif; ?&gt;</code></pre><p>
+For some more solutions or custom modules that can solve this read  <a href="http://drupal.org/node/138127">http://drupal.org/node/138127</a></p>
+</div>
+      
+      <div class="field-wrapper">
+              <div><a href="/drupaldump/drupal-6" hreflang="en">Drupal 6</a></div>
+          </div>
+  
+      <div class="field-wrapper">
+              <div><a href="/drupaldump/posts-about/user-interface" hreflang="en">User interface</a></div>
+          </div>
+  
+            <div class="field-wrapper"><div id="disqus_thread"><noscript>
+  <p>
+    <a href="http://drupaldump.disqus.com/">View the discussion thread.</a>
+  </p>
+</noscript>
+</div>
+</div>
+      </p>
+                </section>
+  </article>
+</main>
+
+  </div>
+
+  </div>
+
+                    </div>
+    </main>
+            <footer role="contentinfo">
+              <div>
+    <div id="block-home">
+  
+    
+      
+            <div class="body field"><p><a href="/drupaldump/">Finding The Way Home</a> @ 2011 - 2020</p>
+</div>
+      
+  </div>
+<div id="block-casper-powered" role="complementary">
+  
+    
+      <span>Powered by <a href="https://www.drupal.org">Drupal</a></span>
+  </div>
+
+  </div>
+
+        </footer>
+    </div>
+</body>
+
+  </div>
+
+    
+    <script type="application/json" data-drupal-selector="drupal-settings-json">{"path":{"baseUrl":"/drupaldump/","scriptPath":null,"pathPrefix":"","currentPath":"node\/53","currentPathIsAdmin":false,"isFront":false,"currentLanguage":"en"},"pluralDelimiter":"\u0003","suppressDeprecationErrors":true,"google_analytics":{"account":"UA-25017378-1","trackOutbound":true,"trackMailto":true,"trackDownload":true,"trackDownloadExtensions":"7z|aac|arc|arj|asf|asx|avi|bin|csv|doc(x|m)?|dot(x|m)?|exe|flv|gif|gz|gzip|hqx|jar|jpe?g|js|mp(2|3|4|e?g)|mov(ie)?|msi|msp|pdf|phps|png|ppt(x|m)?|pot(x|m)?|pps(x|m)?|ppam|sld(x|m)?|thmx|qtm?|ra(m|r)?|sea|sit|tar|tgz|torrent|txt|wav|wma|wmv|wpd|xls(x|m|b)?|xlt(x|m)|xlam|xml|z|zip"},"disqusComments":"drupaldump","disqus":{"domain":"drupaldump","url":"http:\/\/95.216.6.96:8088\/hiding-history-user-profile-view","title":"Hiding History in User profile view","identifier":"node\/53","disable_mobile":false},"user":{"uid":0,"permissionsHash":"61d0b3aee71a501d8526c4a3ac79a2c1e6f537791b4ed94adeca4bcbf97c542c"}}</script>
+<script src="/drupaldump/sites/default/files/js/js_2TI3DKoAde-tDzv3_jAE9uNOl4laF37h3D1iN4gXU_w.js"></script>
+
+</html>

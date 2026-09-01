@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" prefix="content: http://purl.org/rss/1.0/modules/content/  dc: http://purl.org/dc/terms/  foaf: http://xmlns.com/foaf/0.1/  og: http://ogp.me/ns#  rdfs: http://www.w3.org/2000/01/rdf-schema#  schema: http://schema.org/  sioc: http://rdfs.org/sioc/ns#  sioct: http://rdfs.org/sioc/types#  skos: http://www.w3.org/2004/02/skos/core#  xsd: http://www.w3.org/2001/XMLSchema# ">
+  <head>
+<meta charset="utf-8" />
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-25017378-1"></script>
+<script>window.dataLayer = window.dataLayer || [];function gtag(){dataLayer.push(arguments)};gtag("js", new Date());gtag("config", "UA-25017378-1", {"groups":"default","anonymize_ip":true,"allow_ad_personalization_signals":false});</script>
+<meta name="Generator" content="Drupal 8 (https://www.drupal.org)" />
+<meta name="MobileOptimized" content="width" />
+<meta name="HandheldFriendly" content="true" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="shortcut icon" href="/drupaldump/sites/default/files/12065725081662529858mszinger_Recycle_simple.ico" type="image/vnd.microsoft.icon" />
+<link rel="canonical" href="/drupaldump/vps-lamp-stackscript-additional-settings-make-it-work" />
+<link rel="shortlink" href="/drupaldump/node/86" />
+<link rel="revision" href="/drupaldump/vps-lamp-stackscript-additional-settings-make-it-work" />
+
+    <title>VPS LAMP stackscript additional settings to make it work | DrupalDump.com</title>
+    <link rel="stylesheet" media="all" href="/drupaldump/sites/default/files/css/css_AlJtUK5t4kiN78bTuJmj-RlnrwdMAgZ7cSkPQ8kQg08.css" />
+<link rel="stylesheet" media="all" href="/drupaldump/sites/default/files/css/css_bIJWoj7ddw1nKKt8k0N7ZLw5VA0VkhLoweEPaHldh1E.css" />
+
+    
+<!--[if lte IE 8]>
+<script src="/drupaldump/sites/default/files/js/js_VtafjXmRvoUgAzqzYTA3Wrjkx9wcWhjP0G4ZnnqRamA.js"></script>
+<![endif]-->
+
+        <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Merriweather:300,700,700italic,300italic|Open+Sans:700,400" />
+  </head>
+    <a href="#main-content" class="visually-hidden focusable skip-link">
+      Skip to main content
+    </a>
+    
+      <div class="dialog-off-canvas-main-canvas" data-off-canvas-main-canvas>
+    <body class="nav-closed">      <div>
+    <nav role="navigation" aria-labelledby="block-casper-main-menu-menu" id="block-casper-main-menu">
+            
+  <h2 class="visually-hidden" id="block-casper-main-menu-menu">Main navigation</h2>
+  
+
+        
+                    <div class="nav">
+        <h3 class="nav-title">Menu</h3>
+        <a href="#" class="nav-close">
+            <span class="hidden">Close</span>
+        </a>
+        <ul>
+                                        <li role="presentation" >
+                <a href="/drupaldump/" data-drupal-link-system-path="&lt;front&gt;">Home</a>
+                            </li>
+                                <li role="presentation" >
+                <a href="/drupaldump/posts-about/modules" data-drupal-link-system-path="taxonomy/term/17">Modules</a>
+                            </li>
+                                <li role="presentation" >
+                <a href="/drupaldump/posts-about/devops" data-drupal-link-system-path="taxonomy/term/19">System</a>
+                            </li>
+                                <li role="presentation" >
+                <a href="/drupaldump/posts-about/theming" data-drupal-link-system-path="taxonomy/term/10">Theming</a>
+                            </li>
+                                <li role="presentation" >
+                <a href="/drupaldump/contact/feedback" data-drupal-link-system-path="contact/feedback">Contact</a>
+                            </li>
+                </ul>
+        </div>
+    
+
+
+  </nav>
+
+  </div>
+
+<span class="nav-cover"></span>
+<div class="site-wrapper">
+<header class="main-header post-head no-cover" xmlns="http://www.w3.org/1999/html">
+    <nav class="main-nav  clearfix">
+                <a class="blog-logo" href="/drupaldump/"><img src="/drupaldump/sites/default/files/theme/backgrounds/drupal 8 logo isolated CMYK 72.png" /></a>
+                <a class="menu-button icon-menu" href="#"><span class="word">Menu</span></a>
+    </nav>
+</header>
+    
+<div class="highlighted">
+  <div>
+    <div data-drupal-messages-fallback class="hidden"></div>
+
+  </div>
+
+</div>
+    <main role="main">
+        <a id="main-content" tabindex="-1"></a>
+        <div class="layout-content">
+                              <div>
+    <div id="block-casper-content">
+  
+    
+      
+<main class="content" role="main">
+  <article class="post page">
+      <header class="post-header">
+                    <h1 class="post-title"><span class="field-wrapper">VPS LAMP stackscript additional settings to make it work</span>
+</h1>
+          	<p class="post-date">Thu, 08/30/2012</p>	
+      </header>
+      <section class="post-content">
+                    <p>
+            <div class="body field"><p>If you have some stackscript, like you might have on VPS like Linode, where you have automaticly installed some linux distribution like Debian, and then  Apacher, PHP and MySQL are also installed, this will not work out of the box, you will still need to add some extra stuff on your VPS so you could install some drupal sites.</p>
+<p>1. You should enter following commands to set the hostname, replacing duck with the hostname of your choice:</p>
+<pre><code class="language-php">echo "duck" &gt; /etc/hostname
+hostname -F /etc/hostname</code></pre><p>
+2. Edit your /etc/hosts file to resemble the following example, replacing duck with your chosen hostname, example.com with your system's domain name, and 32.14.56.18 with your system's IP address (you can leave example.com as it is)</p>
+<pre><code class="language-php">127.0.0.1        localhost.localdomain    localhost
+32.14.56.18      duck.example.com         duck</code></pre><p>
+3. Run dpkg-reconfigure tzdata to set your timezone, this is autoconfig with options</p>
+<p>4. Run mysql_secure_installation  to finish off your mysql installation</p>
+<p>5. Run apt-get upgrade --show-upgraded  to have all your packages updated</p>
+<p>6. Install stuff like gd library, memcache, pear, phpmyadmin etc you do it like</p>
+<pre><code class="language-php">apt-get install php5 php-pear php5-suhosin</code></pre><p>
+7. Enabled apache modes you need, like you run this for url rewrites</p>
+<pre><code class="language-php">a2enmod rewrite</code></pre><p>
+8. Create your virtual host files in /etc/apache2/sites-available/example.com<br />
+Like</p>
+<pre><code class="language-php">&lt;VirtualHost *:80&gt;
+     ServerAdmin webmaster@example.com
+     ServerName example.com
+     ServerAlias www.example.com
+     DocumentRoot /srv/www/example.com/public_html/
+     ErrorLog /srv/www/example.com/logs/error.log
+     CustomLog /srv/www/example.com/logs/access.log combined
+&lt;/VirtualHost&gt;</code></pre><p>
+Make appropriate directories so that site would work, otherwise you whole server won't work if these are missing and you enabled site, or you enable it and then delete them</p>
+<pre><code class="language-php">mkdir -p /srv/www/example.com/public_html
+mkdir /srv/www/example.com/logs</code></pre><p>
+and then run <strong>a2ensite example.com</strong> if some problems occur you dissable site with <strong>a2dissite example.com</strong></p>
+<p>9. You should also make some database, lets make one quickly and add user so we can instal some site.</p>
+<p>Login to mysql with your root user mysql -u root -p  enter password and then<br />
+enter lines with semicolon included</p>
+<pre><code class="language-php">create database hiphop;
+grant all on hiphop.* to 'baker' identified by 'fre8';
+quit</code></pre><p>
+10. In the end to kind of Refresh all of this, run <strong>/etc/init.d/apache2 restart</strong><br />
+or <strong>/etc/init.d/apache2 reload </strong>(you can also run it between some steps, sometimes even apache will recommend this with prompt message) and it should work fine.</p>
+</div>
+      
+      <div class="field-wrapper">
+              <div><a href="/drupaldump/drupal-6" hreflang="en">Drupal 6</a></div>
+              <div><a href="/drupaldump/drupal-7" hreflang="en">Drupal 7</a></div>
+          </div>
+  
+      <div class="field-wrapper">
+              <div><a href="/drupaldump/posts-about/devops" hreflang="en">Devops</a></div>
+          </div>
+  
+            <div class="field-wrapper"><div id="disqus_thread"><noscript>
+  <p>
+    <a href="http://drupaldump.disqus.com/">View the discussion thread.</a>
+  </p>
+</noscript>
+</div>
+</div>
+      </p>
+                </section>
+  </article>
+</main>
+
+  </div>
+
+  </div>
+
+                    </div>
+    </main>
+            <footer role="contentinfo">
+              <div>
+    <div id="block-home">
+  
+    
+      
+            <div class="body field"><p><a href="/drupaldump/">Finding The Way Home</a> @ 2011 - 2020</p>
+</div>
+      
+  </div>
+<div id="block-casper-powered" role="complementary">
+  
+    
+      <span>Powered by <a href="https://www.drupal.org">Drupal</a></span>
+  </div>
+
+  </div>
+
+        </footer>
+    </div>
+</body>
+
+  </div>
+
+    
+    <script type="application/json" data-drupal-selector="drupal-settings-json">{"path":{"baseUrl":"/drupaldump/","scriptPath":null,"pathPrefix":"","currentPath":"node\/86","currentPathIsAdmin":false,"isFront":false,"currentLanguage":"en"},"pluralDelimiter":"\u0003","suppressDeprecationErrors":true,"google_analytics":{"account":"UA-25017378-1","trackOutbound":true,"trackMailto":true,"trackDownload":true,"trackDownloadExtensions":"7z|aac|arc|arj|asf|asx|avi|bin|csv|doc(x|m)?|dot(x|m)?|exe|flv|gif|gz|gzip|hqx|jar|jpe?g|js|mp(2|3|4|e?g)|mov(ie)?|msi|msp|pdf|phps|png|ppt(x|m)?|pot(x|m)?|pps(x|m)?|ppam|sld(x|m)?|thmx|qtm?|ra(m|r)?|sea|sit|tar|tgz|torrent|txt|wav|wma|wmv|wpd|xls(x|m|b)?|xlt(x|m)|xlam|xml|z|zip"},"disqusComments":"drupaldump","disqus":{"domain":"drupaldump","url":"http:\/\/95.216.6.96:8088\/vps-lamp-stackscript-additional-settings-make-it-work","title":"VPS LAMP stackscript additional settings to make it work","identifier":"node\/86","disable_mobile":false},"user":{"uid":0,"permissionsHash":"61d0b3aee71a501d8526c4a3ac79a2c1e6f537791b4ed94adeca4bcbf97c542c"}}</script>
+<script src="/drupaldump/sites/default/files/js/js_2TI3DKoAde-tDzv3_jAE9uNOl4laF37h3D1iN4gXU_w.js"></script>
+
+</html>

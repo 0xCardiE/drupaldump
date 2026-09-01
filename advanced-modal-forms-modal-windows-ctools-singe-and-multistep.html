@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" prefix="content: http://purl.org/rss/1.0/modules/content/  dc: http://purl.org/dc/terms/  foaf: http://xmlns.com/foaf/0.1/  og: http://ogp.me/ns#  rdfs: http://www.w3.org/2000/01/rdf-schema#  schema: http://schema.org/  sioc: http://rdfs.org/sioc/ns#  sioct: http://rdfs.org/sioc/types#  skos: http://www.w3.org/2004/02/skos/core#  xsd: http://www.w3.org/2001/XMLSchema# ">
+  <head>
+<meta charset="utf-8" />
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-25017378-1"></script>
+<script>window.dataLayer = window.dataLayer || [];function gtag(){dataLayer.push(arguments)};gtag("js", new Date());gtag("config", "UA-25017378-1", {"groups":"default","anonymize_ip":true,"allow_ad_personalization_signals":false});</script>
+<meta name="Generator" content="Drupal 8 (https://www.drupal.org)" />
+<meta name="MobileOptimized" content="width" />
+<meta name="HandheldFriendly" content="true" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="shortcut icon" href="/drupaldump/sites/default/files/12065725081662529858mszinger_Recycle_simple.ico" type="image/vnd.microsoft.icon" />
+<link rel="canonical" href="/drupaldump/advanced-modal-forms-modal-windows-ctools-singe-and-multistep" />
+<link rel="shortlink" href="/drupaldump/node/289" />
+<link rel="revision" href="/drupaldump/advanced-modal-forms-modal-windows-ctools-singe-and-multistep" />
+
+    <title>Advanced modal forms - modal windows with CTools  (singe and multistep) | DrupalDump.com</title>
+    <link rel="stylesheet" media="all" href="/drupaldump/sites/default/files/css/css_AlJtUK5t4kiN78bTuJmj-RlnrwdMAgZ7cSkPQ8kQg08.css" />
+<link rel="stylesheet" media="all" href="/drupaldump/sites/default/files/css/css_bIJWoj7ddw1nKKt8k0N7ZLw5VA0VkhLoweEPaHldh1E.css" />
+
+    
+<!--[if lte IE 8]>
+<script src="/drupaldump/sites/default/files/js/js_VtafjXmRvoUgAzqzYTA3Wrjkx9wcWhjP0G4ZnnqRamA.js"></script>
+<![endif]-->
+
+        <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Merriweather:300,700,700italic,300italic|Open+Sans:700,400" />
+  </head>
+    <a href="#main-content" class="visually-hidden focusable skip-link">
+      Skip to main content
+    </a>
+    
+      <div class="dialog-off-canvas-main-canvas" data-off-canvas-main-canvas>
+    <body class="nav-closed">      <div>
+    <nav role="navigation" aria-labelledby="block-casper-main-menu-menu" id="block-casper-main-menu">
+            
+  <h2 class="visually-hidden" id="block-casper-main-menu-menu">Main navigation</h2>
+  
+
+        
+                    <div class="nav">
+        <h3 class="nav-title">Menu</h3>
+        <a href="#" class="nav-close">
+            <span class="hidden">Close</span>
+        </a>
+        <ul>
+                                        <li role="presentation" >
+                <a href="/drupaldump/" data-drupal-link-system-path="&lt;front&gt;">Home</a>
+                            </li>
+                                <li role="presentation" >
+                <a href="/drupaldump/posts-about/modules" data-drupal-link-system-path="taxonomy/term/17">Modules</a>
+                            </li>
+                                <li role="presentation" >
+                <a href="/drupaldump/posts-about/devops" data-drupal-link-system-path="taxonomy/term/19">System</a>
+                            </li>
+                                <li role="presentation" >
+                <a href="/drupaldump/posts-about/theming" data-drupal-link-system-path="taxonomy/term/10">Theming</a>
+                            </li>
+                                <li role="presentation" >
+                <a href="/drupaldump/contact/feedback" data-drupal-link-system-path="contact/feedback">Contact</a>
+                            </li>
+                </ul>
+        </div>
+    
+
+
+  </nav>
+
+  </div>
+
+<span class="nav-cover"></span>
+<div class="site-wrapper">
+<header class="main-header post-head no-cover" xmlns="http://www.w3.org/1999/html">
+    <nav class="main-nav  clearfix">
+                <a class="blog-logo" href="/drupaldump/"><img src="/drupaldump/sites/default/files/theme/backgrounds/drupal 8 logo isolated CMYK 72.png" /></a>
+                <a class="menu-button icon-menu" href="#"><span class="word">Menu</span></a>
+    </nav>
+</header>
+    
+<div class="highlighted">
+  <div>
+    <div data-drupal-messages-fallback class="hidden"></div>
+
+  </div>
+
+</div>
+    <main role="main">
+        <a id="main-content" tabindex="-1"></a>
+        <div class="layout-content">
+                              <div>
+    <div id="block-casper-content">
+  
+    
+      
+<main class="content" role="main">
+  <article class="post page">
+      <header class="post-header">
+                    <h1 class="post-title"><span class="field-wrapper">Advanced modal forms - modal windows with CTools  (singe and multistep)</span>
+</h1>
+          	<p class="post-date">Thu, 09/11/2014</p>	
+      </header>
+      <section class="post-content">
+                    <p>
+            <div class="body field"><p>So I client of mine wanted to use popups :) but not just ordinary popups, he wanted to put there, login, registration, node adding, notificiations, user invites for OG, simple menus and even FB login and registration. We also needed to save some user choices before the login/registration and act upon them after the user logs in. So spoiler alert now "if you want to save budget and time" dont't use modal windows or any popups for complex workflows. The reason is that using popups is something like inception, it is a web page inside a webpage, as basically you get completely functioning page in a modal window, but without page refreshing. So you are using ajax for communication in most cases. The reason I don't recommend it as in most cases you will be on your own to build everything, for example, you will not be able to use nice Rules workflow with it or any other drupal modules that could fasten your development and you will need to build everything or most by your own and then also you will come into different obstacles with drupal system.</p>
+<p>If you want something cool, you should use something like this, which is pretty similar in looks, but much more compatible with drupal and its workflow so you can use the power of other modules<br />
+<a href="http://drupaldump.com/cool-loginregister-screens-without-overlays-no-regions-just-content">http://drupaldump.com/cool-loginregister-screens-without-overlays-no-re…</a></p>
+<p>Anyway if you do choose the path to use modal windows, you should first download this <a href="https://github.com/jlbellido/ctools_expamples">https://github.com/jlbellido/ctools_expamples</a> I also attached it to this post, in case it disappears.  It has examples for plain modal window, modal window for node form and multistep modal windows. So with that you will be good to go and some testing and practicing will help you understand what is going on. </p>
+<p>Here are some tips though:</p>
+<p>If you just need simple modal forms for login, register, password reset, you can go with<br />
+<a href="https://www.drupal.org/project/modal_forms">https://www.drupal.org/project/modal_forms</a>  module and with little or no customization cover it all.</p>
+<p>If you want just to put some menu item in modal, you can use Ctools Automodal <a href="https://www.drupal.org/project/ctools_automodal">https://www.drupal.org/project/ctools_automodal</a><br />
+and you are set to go.</p>
+<p>For handling the forms and what happens on submit, check this example <a href="http://deeson-online.co.uk/labs/insert-form-pop-modal-ctools-and-drupal-7">http://deeson-online.co.uk/labs/insert-form-pop-modal-ctools-and-drupal…</a> where you see how to use this two sets of functions<br />
+<a href="http://drupalcontrib.org/api/drupal/contributions%21ctools%21includes%21modal.inc/7">http://drupalcontrib.org/api/drupal/contributions%21ctools%21includes%2…</a><br />
+<a href="https://api.drupal.org/api/drupal/includes%21ajax.inc/7">https://api.drupal.org/api/drupal/includes%21ajax.inc/7</a></p>
+<p>As with those functions you get to display forms, custom htmls, dismiss modal windows, replace/change parts of the page etc.</p>
+<p>And now some real quick tips:</p>
+<p>To setup modal sizes, you need to add data to Drupal.settings <a href="https://www.drupal.org/node/304258">https://www.drupal.org/node/304258</a><br />
+how to do that you can check on this link where it is done for a views view <a href="http://drupion.com/blog/10-steps-creating-ctools-modal-window-drupal-7">http://drupion.com/blog/10-steps-creating-ctools-modal-window-drupal-7</a> or just check the Modal Forms module and see what they do with _modal_forms_doheader() which is called with modal_forms_init()  in the beginning of module.<br />
+Besides the sizes, you can also set the html template used for creation of the modal window with "modalTheme"  variable, that is then set in .JS file and loaded from there.</p>
+<p>But to override the Drupal.settings setup, just before creation of modal you can do that with setting the output to</p>
+<pre><code class="language-php">      $output[] = ajax_command_css('.ctools-modal-content', array('height' =&gt; '320px'));
+      $output[] = ajax_command_css('#modalContent', array('height' =&gt; '400px'));
+      ...</code></pre><p>
+and then rendering it with   print ajax_render($output);</p>
+<p>To redirect after the submission of the modal use</p>
+<pre><code class="language-php">  $commands[] = ctools_modal_command_dismiss();
+  $commands[] = ctools_ajax_command_redirect('some-page');
+  print ajax_render($commands);</code></pre><p>
+To add node form, depending on what type of fields you have, you could have problems with either opening or saving and closing modal. This is the code I found to work the best, you need to prepare the node and then render it. In the example below, content type is called "team" and it is mentioned twice in the code.</p>
+<pre><code class="language-php">function modal_forms_custom_add_team($js = NULL) {
+  global $user, $language;
+
+  if (!$js) {
+    return;
+  }
+
+  ctools_include('modal');
+  ctools_include('ajax');
+
+  module_load_include('inc', 'node', 'node.pages');
+
+  $node = (object) array(
+    'uid' =&gt; $user-&gt;uid,
+    'name' =&gt; (isset($user-&gt;name) ? $user-&gt;name : ''),
+    'type' =&gt; 'team',
+    'language' =&gt; $language-&gt;language,
+    );
+  $node-&gt;title = NULL;
+
+  node_object_prepare($node);
+
+  $form_state = array(
+    'ajax' =&gt; TRUE,
+    'title' =&gt; 'Add a new Team',
+    'node' =&gt; $node,
+    );
+
+  $form_state['build_info']['args'] = array($node);
+
+  $commands = ctools_modal_form_wrapper('team_node_form', $form_state);
+
+  if (!empty($form_state['executed'])) {
+    ctools_add_js('ajax-responder');
+    $commands[] = ctools_modal_command_dismiss();
+    $commands[] = ctools_ajax_command_redirect('some-page/'.$form_state['nid']);
+  }
+
+  print ajax_render($commands);
+}</code></pre><p>
+Bare in mind, in some cases, you will get some warnings and in the modal case, it will make that ugly alert window and break the modal, so either find a way to fix them or remove error notifications in drupal settings, otherwise you will have hard time making them work.</p>
+<p><strong>For multistep ctools modal window forms</strong>, you have a bit different approach, please check the attached code for an example and here below are some tips:</p>
+<p>Lets say you are using login/register and then create a node form workflow, first problem you could have is menu item access problem. If you set to login menu this<br />
+<strong>'access callback' =&gt; 'user_is_anonymous',</strong><br />
+it is not a problem, but if you set it to multistep like above, you will get errors as after you login and go to second step of node creation, this access check will break your form. So you should do some custom access callback or just use something like<br />
+<strong>'access arguments' =&gt; array('access content') </strong><br />
+or just<br />
+<strong>'access callback' =&gt; TRUE </strong><br />
+which will probably cover all the cases. More here <a href="https://www.drupal.org/node/109157">https://www.drupal.org/node/109157</a></p>
+<p>In multistep forms you can create your forms and submit callbacks and validations but what to do with already created forms in system, like user_login/user_register etc. You just do this</p>
+<pre><code class="language-php">   // Define forms
+    'forms' =&gt; array(
+      'register' =&gt; array(
+        'form id' =&gt; 'user_register_form'
+        ),
+....
+
+</code></pre><p>
+in your multistep form defining, and that is it. It will be used. </p>
+<p>The problem can occur if you want to override submit callback. You can use hooks like<br />
+my_module_form_user_register_form_alter  but they will not always work. I had a situation where I had a normal login form and a multistep login form on the same page and for some reason(still not sure why) nornal login form would override the hook above and just ignore the code in it, maybe it was also due to me using custom template for login_form in template.php. Not sure anymore but there is where I solved that issue with</p>
+<pre><code class="language-php">
+
+function my_theme_preprocess_user_register_form(&amp;$vars) {
+ if (isset($vars['form']['buttons'])){
+   $register_path = 'modal/nojs/register_team';
+   $vars['form']['actions']['#access'] = FALSE; 
+   $vars['form']['#submit'] = array(
+    'user_login_submit',
+    'ctools_wizard_submit',
+    );
+ } else{
+   $register_path = 'modal/nojs/register';
+ }</code></pre><p>
+Which would check if the form has "buttons" array, which is kind of hackish, but it has it only if we are using multistep form, so it is pretty safe way to determine what to do with form.<br />
+So if it is a multistep we use first part where I disable the standard Drupal Submit button (another tip)  with<br />
+<strong>   $vars['form']['actions']['#access'] = FALSE; </strong><br />
+then change submit functions and put them in right order.<br />
+This can also be done on hook_FORM_ID_alter in module, but in some cases it will not work. Even with this solution<br />
+<a href="https://api.drupal.org/api/drupal/modules%21system%21system.api.php/function/hook_module_implements_alter/7">https://api.drupal.org/api/drupal/modules%21system%21system.api.php/fun…</a><br />
+so change it in template preprocess and that is it.</p>
+<p>So this should be it. As I said, don't use it for complex workflows as you will hit problems. But if you must, all of this should help you solve any possible scenario.</p>
+</div>
+      
+      <div class="field-wrapper">
+              <div><a href="/drupaldump/drupal-7" hreflang="en">Drupal 7</a></div>
+          </div>
+  
+      <div class="field-wrapper">
+              <div><a href="/drupaldump/posts-about/modules" hreflang="en">Modules</a></div>
+          </div>
+  
+            <div class="field-wrapper"><div id="disqus_thread"><noscript>
+  <p>
+    <a href="http://drupaldump.disqus.com/">View the discussion thread.</a>
+  </p>
+</noscript>
+</div>
+</div>
+      </p>
+                </section>
+  </article>
+</main>
+
+  </div>
+
+  </div>
+
+                    </div>
+    </main>
+            <footer role="contentinfo">
+              <div>
+    <div id="block-home">
+  
+    
+      
+            <div class="body field"><p><a href="/drupaldump/">Finding The Way Home</a> @ 2011 - 2020</p>
+</div>
+      
+  </div>
+<div id="block-casper-powered" role="complementary">
+  
+    
+      <span>Powered by <a href="https://www.drupal.org">Drupal</a></span>
+  </div>
+
+  </div>
+
+        </footer>
+    </div>
+</body>
+
+  </div>
+
+    
+    <script type="application/json" data-drupal-selector="drupal-settings-json">{"path":{"baseUrl":"/drupaldump/","scriptPath":null,"pathPrefix":"","currentPath":"node\/289","currentPathIsAdmin":false,"isFront":false,"currentLanguage":"en"},"pluralDelimiter":"\u0003","suppressDeprecationErrors":true,"google_analytics":{"account":"UA-25017378-1","trackOutbound":true,"trackMailto":true,"trackDownload":true,"trackDownloadExtensions":"7z|aac|arc|arj|asf|asx|avi|bin|csv|doc(x|m)?|dot(x|m)?|exe|flv|gif|gz|gzip|hqx|jar|jpe?g|js|mp(2|3|4|e?g)|mov(ie)?|msi|msp|pdf|phps|png|ppt(x|m)?|pot(x|m)?|pps(x|m)?|ppam|sld(x|m)?|thmx|qtm?|ra(m|r)?|sea|sit|tar|tgz|torrent|txt|wav|wma|wmv|wpd|xls(x|m|b)?|xlt(x|m)|xlam|xml|z|zip"},"disqusComments":"drupaldump","disqus":{"domain":"drupaldump","url":"http:\/\/95.216.6.96:8088\/advanced-modal-forms-modal-windows-ctools-singe-and-multistep","title":"Advanced modal forms - modal windows with CTools  (singe and multistep)","identifier":"node\/289","disable_mobile":false},"user":{"uid":0,"permissionsHash":"61d0b3aee71a501d8526c4a3ac79a2c1e6f537791b4ed94adeca4bcbf97c542c"}}</script>
+<script src="/drupaldump/sites/default/files/js/js_2TI3DKoAde-tDzv3_jAE9uNOl4laF37h3D1iN4gXU_w.js"></script>
+
+</html>

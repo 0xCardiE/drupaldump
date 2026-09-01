@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" prefix="content: http://purl.org/rss/1.0/modules/content/  dc: http://purl.org/dc/terms/  foaf: http://xmlns.com/foaf/0.1/  og: http://ogp.me/ns#  rdfs: http://www.w3.org/2000/01/rdf-schema#  schema: http://schema.org/  sioc: http://rdfs.org/sioc/ns#  sioct: http://rdfs.org/sioc/types#  skos: http://www.w3.org/2004/02/skos/core#  xsd: http://www.w3.org/2001/XMLSchema# ">
+  <head>
+<meta charset="utf-8" />
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-25017378-1"></script>
+<script>window.dataLayer = window.dataLayer || [];function gtag(){dataLayer.push(arguments)};gtag("js", new Date());gtag("config", "UA-25017378-1", {"groups":"default","anonymize_ip":true,"allow_ad_personalization_signals":false});</script>
+<meta name="Generator" content="Drupal 8 (https://www.drupal.org)" />
+<meta name="MobileOptimized" content="width" />
+<meta name="HandheldFriendly" content="true" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="shortcut icon" href="/drupaldump/sites/default/files/12065725081662529858mszinger_Recycle_simple.ico" type="image/vnd.microsoft.icon" />
+<link rel="canonical" href="/drupaldump/drupal-varnish-and-what-put-vcl-file" />
+<link rel="shortlink" href="/drupaldump/node/239" />
+<link rel="revision" href="/drupaldump/drupal-varnish-and-what-put-vcl-file" />
+
+    <title>Drupal Varnish and what to put in .vcl file | DrupalDump.com</title>
+    <link rel="stylesheet" media="all" href="/drupaldump/sites/default/files/css/css_AlJtUK5t4kiN78bTuJmj-RlnrwdMAgZ7cSkPQ8kQg08.css" />
+<link rel="stylesheet" media="all" href="/drupaldump/sites/default/files/css/css_bIJWoj7ddw1nKKt8k0N7ZLw5VA0VkhLoweEPaHldh1E.css" />
+
+    
+<!--[if lte IE 8]>
+<script src="/drupaldump/sites/default/files/js/js_VtafjXmRvoUgAzqzYTA3Wrjkx9wcWhjP0G4ZnnqRamA.js"></script>
+<![endif]-->
+
+        <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Merriweather:300,700,700italic,300italic|Open+Sans:700,400" />
+  </head>
+    <a href="#main-content" class="visually-hidden focusable skip-link">
+      Skip to main content
+    </a>
+    
+      <div class="dialog-off-canvas-main-canvas" data-off-canvas-main-canvas>
+    <body class="nav-closed">      <div>
+    <nav role="navigation" aria-labelledby="block-casper-main-menu-menu" id="block-casper-main-menu">
+            
+  <h2 class="visually-hidden" id="block-casper-main-menu-menu">Main navigation</h2>
+  
+
+        
+                    <div class="nav">
+        <h3 class="nav-title">Menu</h3>
+        <a href="#" class="nav-close">
+            <span class="hidden">Close</span>
+        </a>
+        <ul>
+                                        <li role="presentation" >
+                <a href="/drupaldump/" data-drupal-link-system-path="&lt;front&gt;">Home</a>
+                            </li>
+                                <li role="presentation" >
+                <a href="/drupaldump/posts-about/modules" data-drupal-link-system-path="taxonomy/term/17">Modules</a>
+                            </li>
+                                <li role="presentation" >
+                <a href="/drupaldump/posts-about/devops" data-drupal-link-system-path="taxonomy/term/19">System</a>
+                            </li>
+                                <li role="presentation" >
+                <a href="/drupaldump/posts-about/theming" data-drupal-link-system-path="taxonomy/term/10">Theming</a>
+                            </li>
+                                <li role="presentation" >
+                <a href="/drupaldump/contact/feedback" data-drupal-link-system-path="contact/feedback">Contact</a>
+                            </li>
+                </ul>
+        </div>
+    
+
+
+  </nav>
+
+  </div>
+
+<span class="nav-cover"></span>
+<div class="site-wrapper">
+<header class="main-header post-head no-cover" xmlns="http://www.w3.org/1999/html">
+    <nav class="main-nav  clearfix">
+                <a class="blog-logo" href="/drupaldump/"><img src="/drupaldump/sites/default/files/theme/backgrounds/drupal 8 logo isolated CMYK 72.png" /></a>
+                <a class="menu-button icon-menu" href="#"><span class="word">Menu</span></a>
+    </nav>
+</header>
+    
+<div class="highlighted">
+  <div>
+    <div data-drupal-messages-fallback class="hidden"></div>
+
+  </div>
+
+</div>
+    <main role="main">
+        <a id="main-content" tabindex="-1"></a>
+        <div class="layout-content">
+                              <div>
+    <div id="block-casper-content">
+  
+    
+      
+<main class="content" role="main">
+  <article class="post page">
+      <header class="post-header">
+                    <h1 class="post-title"><span class="field-wrapper">Drupal Varnish and what to put in .vcl file</span>
+</h1>
+          	<p class="post-date">Mon, 12/23/2013</p>	
+      </header>
+      <section class="post-content">
+                    <p>
+            <div class="body field"><p>Before I talked about some troubleshooting and had some general discussions about caching<br />
+<a href="http://drupaldump.com/varnish-simple-troubleshooting-defaultvcl">http://drupaldump.com/varnish-simple-troubleshooting-defaultvcl</a><br />
+<a href="http://drupaldump.com/boost-and-varnish-and-general-tips-and-rants-about-drupal-caching">http://drupaldump.com/boost-and-varnish-and-general-tips-and-rants-abou…</a></p>
+<p>Now I am going to talk about what to put in your default.vcl file and why.</p>
+<pre><code class="language-php">backend default {
+    .host = "127.0.0.1";
+    .port = "8082";
+    .connect_timeout = 600s;
+    .first_byte_timeout = 600s;
+    .between_bytes_timeout = 600s;
+}
+
+</code></pre><p>
+This one is obvious, it goes on top of everything and with it you set your IP and port and also timeouts between possible stale time.</p>
+<h3><strong>What goes in sub vcl_recv </strong></h3>
+<p><strong>Compression handling</strong><br />
+# Handle compression correctly. Different browsers send different<br />
+# "Accept-Encoding" headers, even though they mostly all support the same<br />
+# compression mechanisms. By consolidating these compression headers into<br />
+# a consistent format, we can reduce the size of the cache and get more hits.<br />
+# @see: http:// varnish.projects.linpro.no/wiki/FAQ/Compression<br />
+if (req.http.Accept-Encoding) {<br />
+  if (req.http.Accept-Encoding ~ "gzip") {<br />
+    # If the browser supports it, we'll use gzip.<br />
+    set req.http.Accept-Encoding = "gzip";<br />
+  }<br />
+  else if (req.http.Accept-Encoding ~ "deflate") {<br />
+    # Next, try deflate if it is supported.<br />
+    set req.http.Accept-Encoding = "deflate";<br />
+  }<br />
+  else {<br />
+    # Unknown algorithm. Remove it and send unencoded.<br />
+    unset req.http.Accept-Encoding;<br />
+  }<br />
+}</p>
+<p><strong>Pages to never cache</strong></p>
+<pre><code class="language-php">#Don't cache pages that should never be cached
+ if (req.url ~ "^/status\.php$" ||
+      req.url ~ "^/update\.php$" ||
+      req.url ~ "^/admin$" ||
+      req.url ~ "^/admin/.*$" ||
+      req.url ~ "^/flag/.*$" ||
+      req.url ~ "^.*/ajax/.*$" ||
+      req.url ~ "^/user$" ||
+      req.url ~ "^/users/.*$" ||
+      req.url ~ "^.*/ahah/.*$") {
+      return (pass);
+  }
+</code></pre><p>
+"pass" command ensures that server will always retrieve a fresh copy of the page.</p>
+<h3><strong>Special case scenarios for pipes</strong></h3>
+<pre><code class="language-php">#Pipe these paths directly to Apache for streaming.
+if (req.url ~ "^/admin/content/backup_migrate/export") {
+  return (pipe);
+}
+</code></pre><p>
+If you are using drupal backup and migrate module, you will need this. In this case varnish acts as a pipe between server and browser and information goes back and forth between those two. This could also be needed for some streaming modules and any files that are being generated on the server and downloaded in real-time and because of that are of unknown size, and Varnish can't provide the content-length information.</p>
+<p><strong>KEY CONCEPT, cookie cleaning or not</strong></p>
+<pre><code class="language-php">#check if there is session cookie from logged in user
+if (!req.http.Cookie ~ "SESS|SSESS|NO_CACHE|VARNISH|DRUPAL_UID|LOGGED_IN") {
+         unset req.http.Cookie;
+    }</code></pre><p>
+This is one of the key concepts which will make or break your varnish. On many places you will find cookie sanitizations which remove cookies unless it is logged in Session for drupal, so that you don't cache pages that are for logged in users. Well that is ok, but then I wondered, why not just check if there is a logged in session in cookie and if there is not, just remove all the cookies from request. And this works ofcourse. You could have a problem if you have some OTHER cookies that are not from logged in sessions. But then again you can add them the same way you could add it to sanitization. Above example covers both cookies for D6 and D7.</p>
+<p><strong>Cookie Sanitization</strong></p>
+<pre><code class="language-php">  if (req.http.Cookie) {
+    set req.http.Cookie = ";" + req.http.Cookie;
+    set req.http.Cookie = regsuball(req.http.Cookie, "; +", ";");
+    set req.http.Cookie = regsuball(req.http.Cookie, ";(SESS[a-z0-9]+|NO_CACHE)=", "; \1=");
+    set req.http.Cookie = regsuball(req.http.Cookie, ";[^ ][^;]*", "");
+    set req.http.Cookie = regsuball(req.http.Cookie, "^[; ]+|[; ]+$", "");
+
+    if (req.http.Cookie == "") {
+      # If there are no remaining cookies, remove the cookie header. If there
+      # aren't any cookie headers, Varnish's default behavior will be to cache
+      # the page.
+      unset req.http.Cookie;
+    }
+    else {
+      # If there are any cookies left (a session or NO_CACHE cookie), do not
+      # cache the page. Pass it on to Apache directly.
+      return (pass);
+    }
+  }</code></pre><p>
+So this code strips "all" the cookie but the one that are included (SESS one) which is done with "; \1=" ending part. Don't really see it why to use this approach. But you can, also bare in mind that I am not sure this even works properly and that it really sanitizes all the cookies you want, but this approach is all over the internet so here you go.</p>
+<p><strong>Catching files</strong></p>
+<pre><code class="language-php"># Cache things with these extensions whether we are logged in or not, we don't care
+if (req.url ~ "\.(js|css|jpg|jpeg|png|gif|gz|tgz|bz2|tbz|mp3|ogg|swf)$") {
+    return (lookup);
+    }</code></pre><p>
+We catch all this files for all users, as we don't care if you are logged in user or not, you always get the same front page .jpg, if you have some special cases for this, then you need to write exceptions for those.</p>
+<p><strong>Grace Period</strong></p>
+<pre><code class="language-php"># Allow the backend to serve up stale content if it is responding slowly.
+  set req.grace = 6h;
+</code></pre><p>
+If apache goes down, this can save you. Varnish will serve cached content 6h after the time of expire, so put this in.</p>
+<p><strong>No outside access</strong></p>
+<pre><code class="language-php"># Do not allow outside access to cron.php or install.php.
+  if (req.url ~ "^/(cron|install)\.php$" &amp;&amp; !client.ip ~ internal) {
+    # Have Varnish throw the error directly.
+    error 404 "Page not found.";
+    # Use a custom error page that you've defined in Drupal at the path "404".
+    # set req.url = "/404";
+  }
+</code></pre><p>
+Don't allow bots or others to access this paths, so you have less problems.</p>
+<p><strong>Excluding some site from caching</strong></p>
+<p>## This would make varnish skip caching for this particular site<br />
+if (req.http.host ~ "mexicodental.co$") {<br />
+return (pass);<br />
+}</p>
+<p>This is really optional, but just that you have it here if needed.</p>
+<h3><strong>sub vcl_fetch</strong></h3>
+<pre><code class="language-php"> # Don't allow static files to set cookies.
+  if (req.url ~ "(?i)\.(png|gif|jpeg|jpg|ico|swf|css|js|html|htm|gz|tgz|bz2|tbz|mp3|ogg|mp4|flv|f4v|pdf)(\?[a-z0-9]+)?$") {
+    # beresp == Back-end response from the web server.
+    unset beresp.http.set-cookie;
+    return (deliver);
+ }</code></pre><p>
+Simple, don't allow this file extensions to set cookies, they will probably not do that but if they do, they will break caching, so put this also.</p>
+<p><strong>Grace in Fetch</strong></p>
+<pre><code class="language-php"># Allow items to be stale if needed.
+  set beresp.grace = 6h;
+}</code></pre><p>
+Put here also grace period, this one has to be always the same or higher then first one. Take this as max time and the first as min time.</p>
+<h3><strong>sub vcl_deliver</strong></h3>
+<pre><code class="language-php"># Set a header to track a cache HIT/MISS.
+  if (obj.hits &gt; 0) {
+    set resp.http.X-Varnish-Cache = "HIT";
+  }
+  else {
+    set resp.http.X-Varnish-Cache = "MISS";
+  }</code></pre><p>
+This one is just so you have output of hit/miss situation in your browsers, you will find it under X-Varnish info.</p>
+<h3><strong>sub vcl_error</strong></h3>
+<pre><code class="language-php"># In the event of an error, show friendlier messages.
+sub vcl_error {
+
+  # Redirect to the homepage, which will likely be in the cache.
+  set obj.http.Content-Type = "text/html; charset=utf-8";
+  synthetic {"
+</code></pre><p>
+If you get error, you will see just nasty message, so here you can make this page a bit nicer for users, here is the whole code of subroutine so you don't miss deliver part at the end.</p>
+</div>
+      
+      <div class="field-wrapper">
+              <div><a href="/drupaldump/drupal-6" hreflang="en">Drupal 6</a></div>
+              <div><a href="/drupaldump/drupal-7" hreflang="en">Drupal 7</a></div>
+          </div>
+  
+      <div class="field-wrapper">
+              <div><a href="/drupaldump/posts-about/devops" hreflang="en">Devops</a></div>
+          </div>
+  
+            <div class="field-wrapper"><div id="disqus_thread"><noscript>
+  <p>
+    <a href="http://drupaldump.disqus.com/">View the discussion thread.</a>
+  </p>
+</noscript>
+</div>
+</div>
+      </p>
+                </section>
+  </article>
+</main>
+
+  </div>
+
+  </div>
+
+                    </div>
+    </main>
+            <footer role="contentinfo">
+              <div>
+    <div id="block-home">
+  
+    
+      
+            <div class="body field"><p><a href="/drupaldump/">Finding The Way Home</a> @ 2011 - 2020</p>
+</div>
+      
+  </div>
+<div id="block-casper-powered" role="complementary">
+  
+    
+      <span>Powered by <a href="https://www.drupal.org">Drupal</a></span>
+  </div>
+
+  </div>
+
+        </footer>
+    </div>
+</body>
+
+  </div>
+
+    
+    <script type="application/json" data-drupal-selector="drupal-settings-json">{"path":{"baseUrl":"/drupaldump/","scriptPath":null,"pathPrefix":"","currentPath":"node\/239","currentPathIsAdmin":false,"isFront":false,"currentLanguage":"en"},"pluralDelimiter":"\u0003","suppressDeprecationErrors":true,"google_analytics":{"account":"UA-25017378-1","trackOutbound":true,"trackMailto":true,"trackDownload":true,"trackDownloadExtensions":"7z|aac|arc|arj|asf|asx|avi|bin|csv|doc(x|m)?|dot(x|m)?|exe|flv|gif|gz|gzip|hqx|jar|jpe?g|js|mp(2|3|4|e?g)|mov(ie)?|msi|msp|pdf|phps|png|ppt(x|m)?|pot(x|m)?|pps(x|m)?|ppam|sld(x|m)?|thmx|qtm?|ra(m|r)?|sea|sit|tar|tgz|torrent|txt|wav|wma|wmv|wpd|xls(x|m|b)?|xlt(x|m)|xlam|xml|z|zip"},"disqusComments":"drupaldump","disqus":{"domain":"drupaldump","url":"http:\/\/95.216.6.96:8088\/drupal-varnish-and-what-put-vcl-file","title":"Drupal Varnish and what to put in .vcl file","identifier":"node\/239","disable_mobile":false},"user":{"uid":0,"permissionsHash":"61d0b3aee71a501d8526c4a3ac79a2c1e6f537791b4ed94adeca4bcbf97c542c"}}</script>
+<script src="/drupaldump/sites/default/files/js/js_2TI3DKoAde-tDzv3_jAE9uNOl4laF37h3D1iN4gXU_w.js"></script>
+
+</html>

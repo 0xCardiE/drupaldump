@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" prefix="content: http://purl.org/rss/1.0/modules/content/  dc: http://purl.org/dc/terms/  foaf: http://xmlns.com/foaf/0.1/  og: http://ogp.me/ns#  rdfs: http://www.w3.org/2000/01/rdf-schema#  schema: http://schema.org/  sioc: http://rdfs.org/sioc/ns#  sioct: http://rdfs.org/sioc/types#  skos: http://www.w3.org/2004/02/skos/core#  xsd: http://www.w3.org/2001/XMLSchema# ">
+  <head>
+<meta charset="utf-8" />
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-25017378-1"></script>
+<script>window.dataLayer = window.dataLayer || [];function gtag(){dataLayer.push(arguments)};gtag("js", new Date());gtag("config", "UA-25017378-1", {"groups":"default","anonymize_ip":true,"allow_ad_personalization_signals":false});</script>
+<meta name="Generator" content="Drupal 8 (https://www.drupal.org)" />
+<meta name="MobileOptimized" content="width" />
+<meta name="HandheldFriendly" content="true" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="shortcut icon" href="/drupaldump/sites/default/files/12065725081662529858mszinger_Recycle_simple.ico" type="image/vnd.microsoft.icon" />
+<link rel="canonical" href="/drupaldump/translating-taxonomy-summary-views" />
+<link rel="shortlink" href="/drupaldump/node/220" />
+<link rel="revision" href="/drupaldump/translating-taxonomy-summary-views" />
+
+    <title>Translating taxonomy summary in views | DrupalDump.com</title>
+    <link rel="stylesheet" media="all" href="/drupaldump/sites/default/files/css/css_AlJtUK5t4kiN78bTuJmj-RlnrwdMAgZ7cSkPQ8kQg08.css" />
+<link rel="stylesheet" media="all" href="/drupaldump/sites/default/files/css/css_bIJWoj7ddw1nKKt8k0N7ZLw5VA0VkhLoweEPaHldh1E.css" />
+
+    
+<!--[if lte IE 8]>
+<script src="/drupaldump/sites/default/files/js/js_VtafjXmRvoUgAzqzYTA3Wrjkx9wcWhjP0G4ZnnqRamA.js"></script>
+<![endif]-->
+
+        <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Merriweather:300,700,700italic,300italic|Open+Sans:700,400" />
+  </head>
+    <a href="#main-content" class="visually-hidden focusable skip-link">
+      Skip to main content
+    </a>
+    
+      <div class="dialog-off-canvas-main-canvas" data-off-canvas-main-canvas>
+    <body class="nav-closed">      <div>
+    <nav role="navigation" aria-labelledby="block-casper-main-menu-menu" id="block-casper-main-menu">
+            
+  <h2 class="visually-hidden" id="block-casper-main-menu-menu">Main navigation</h2>
+  
+
+        
+                    <div class="nav">
+        <h3 class="nav-title">Menu</h3>
+        <a href="#" class="nav-close">
+            <span class="hidden">Close</span>
+        </a>
+        <ul>
+                                        <li role="presentation" >
+                <a href="/drupaldump/" data-drupal-link-system-path="&lt;front&gt;">Home</a>
+                            </li>
+                                <li role="presentation" >
+                <a href="/drupaldump/posts-about/modules" data-drupal-link-system-path="taxonomy/term/17">Modules</a>
+                            </li>
+                                <li role="presentation" >
+                <a href="/drupaldump/posts-about/devops" data-drupal-link-system-path="taxonomy/term/19">System</a>
+                            </li>
+                                <li role="presentation" >
+                <a href="/drupaldump/posts-about/theming" data-drupal-link-system-path="taxonomy/term/10">Theming</a>
+                            </li>
+                                <li role="presentation" >
+                <a href="/drupaldump/contact/feedback" data-drupal-link-system-path="contact/feedback">Contact</a>
+                            </li>
+                </ul>
+        </div>
+    
+
+
+  </nav>
+
+  </div>
+
+<span class="nav-cover"></span>
+<div class="site-wrapper">
+<header class="main-header post-head no-cover" xmlns="http://www.w3.org/1999/html">
+    <nav class="main-nav  clearfix">
+                <a class="blog-logo" href="/drupaldump/"><img src="/drupaldump/sites/default/files/theme/backgrounds/drupal 8 logo isolated CMYK 72.png" /></a>
+                <a class="menu-button icon-menu" href="#"><span class="word">Menu</span></a>
+    </nav>
+</header>
+    
+<div class="highlighted">
+  <div>
+    <div data-drupal-messages-fallback class="hidden"></div>
+
+  </div>
+
+</div>
+    <main role="main">
+        <a id="main-content" tabindex="-1"></a>
+        <div class="layout-content">
+                              <div>
+    <div id="block-casper-content">
+  
+    
+      
+<main class="content" role="main">
+  <article class="post page">
+      <header class="post-header">
+                    <h1 class="post-title"><span class="field-wrapper">Translating taxonomy summary in views</span>
+</h1>
+          	<p class="post-date">Fri, 03/08/2013</p>	
+      </header>
+      <section class="post-content">
+                    <p>
+            <div class="body field"><p>Here is another drupal i18n beast. I have nice taxonomy summary for a category of shops. Which is attachment for a view, which passes term to it to filter category and show only shops that are in that category. Looks nice, it is moderately useful and seems it has never been done before. Search for something similar never came up in google, only a rather useful post that deals with similar stuff, only much simpler, people want to translate term title. Ahh term title I eat for breakfast :-)  Anyway there are few useful code examples here <a href="http://drupal.org/node/346028">http://drupal.org/node/346028</a>  that could lead you in right place if you are struggling.</p>
+<p>So this is the deal. There are 2 ways you can use your taxonomy with multi language, either you localize your terms, or you translate them. When you translate them you in fact make a term for each language and then connect them with translation sets for possible future connectivity. This is not a bad solution, only you have much more terms in your taxonomy and in some cases more work, to change terms for all of your nodes. And then again you come to views and there is not much support for it there, even less in fact.</p>
+<p>Then I choose localize, you "translate"(great naming drupal people, really no confusion there ehhh) or maybe I should say localize, but what you do is translate :-) without creating new terms, you translate strings. And then you refresh strings and you realize all of your localization has disappeared, why? Seems there is some glitch when you migrate from drupal 6 to drupal 7 and I had to re-save all of the taxonomy terms so they don't get deleted when you refresh, maybe this is also due to changing from localize-&gt;translate mode of taxonomy, don't know. Anyway this can happen do try before enter all of them. </p>
+<p>Anyway I localize, so then what? To have some view display, install i18n views module, there are some filters and relationships etc but not much help there for my case. I created separate views for each language (maybe this is to much, but from experience it was often necessary, either that or some hacking again). And then add attachment, added page. In fields you add normal field, just under formatter you choose "localize" and this works for views! But then there is this summary part, how to make this thing show other languages? There was no way to make it happen. So in the end I had to do some custom stuff. I installed custom template, default template for summary is views-view-summary-unformatted.tpl.php, my view name is<br />
+views-view-summary-unformatted--negozi--attachment_1.tpl.php for Italian, and<br />
+views-view-summary-unformatted--shops--attachment_1.tpl.php for English. So this is what I added to my theme. You can also use default template, but then all of your summary would be overriden, and this is a problem if you have more as code we are going to add will try to translate everything, and if you have some numbers, of alphabet summaries, then you will get empty values. So the code is</p>
+<pre><code class="language-php">&lt;?php foreach ($rows as $id =&gt; $row): ?&gt;
+  &lt;?php print (!empty($options['inline']) ? '&lt;span' : '&lt;div') . ' class="views-summary views-summary-unformatted"&gt;'; ?&gt;
+    &lt;?php if (!empty($row-&gt;separator)) { print $row-&gt;separator; } ?&gt;
+    &lt;a href="&lt;?php print $row-&gt;url; ?&gt;"&lt;?php print !empty($row_classes[$id]) ? ' class="' . $row_classes[$id] . '"' : ''; ?&gt;&gt;&lt;?php print i18n_string('taxonomy:term:'.$row-&gt;taxonomy_index_tid.':name',$row-&gt;taxonomy_term_data_name);
+ ?&gt;&lt;/a&gt;
+    &lt;?php if (!empty($options['count'])): ?&gt;
+      (&lt;?php print $row-&gt;count; ?&gt;)
+    &lt;?php endif; ?&gt;
+  &lt;?php print !empty($options['inline']) ? '&lt;/span&gt;' : '&lt;/div&gt;'; ?&gt;
+&lt;?php endforeach; ?&gt;
+</code></pre><p>
+Main line here is</p>
+<pre><code class="language-php">print i18n_string('taxonomy:term:'.$row-&gt;taxonomy_index_tid.':name',$row-&gt;taxonomy_term_data_name);</code></pre><p>
+Which in fact translates term(s) to current language. That is all and it works. Other solution would be to use this or something similar in template.php and pre-process view but it takes more work there and more code. So this is better for me. Anyway final result is here<br />
+<a href="http://tower-center-rijeka.hr/it/attivita/13">tower-center-rijeka.hr/it/attivita/13</a>  and it seems like I am again pioneer in some things, would be nice if this things worked from out of the box, maybe drupal 8 and all that entity stuff solves it? hope so, but this is getting more and more complex.</p>
+<p>Seems like I don't eat titles for breakfast, There is another override needed for that. You could again do that in some template where you need it but this time lets do it over template.php So we then add this to template.php</p>
+<pre><code class="language-php">function tower_views_pre_render(&amp;$view) {
+  //the following translates taxonomy_term views titles, assuming they're being set by the argument handler
+  dpm($view);
+  if($view-&gt;current_display == 'page_2') {
+    if($view-&gt;name == 'negozi') {
+      if(isset($view-&gt;args[0])) {
+        $tid = $view-&gt;args[0];
+        $view-&gt;build_info['title'] = 'Attivita'.i18n_string('taxonomy:term:' . $tid . ':name', drupal_get_title());
+      }
+    }
+  }
+}</code></pre><p>
+We check for view name and view display (page_2) and then make a new title that will be used for both body and meta part of page.</p>
+</div>
+      
+      <div class="field-wrapper">
+              <div><a href="/drupaldump/drupal-6" hreflang="en">Drupal 6</a></div>
+              <div><a href="/drupaldump/drupal-7" hreflang="en">Drupal 7</a></div>
+          </div>
+  
+      <div class="field-wrapper">
+              <div><a href="/drupaldump/posts-about/views" hreflang="en">Views</a></div>
+              <div><a href="/drupaldump/posts-about/theming" hreflang="en">Theming</a></div>
+              <div><a href="/drupaldump/posts-about/taxonomy" hreflang="en">Taxonomy</a></div>
+          </div>
+  
+            <div class="field-wrapper"><div id="disqus_thread"><noscript>
+  <p>
+    <a href="http://drupaldump.disqus.com/">View the discussion thread.</a>
+  </p>
+</noscript>
+</div>
+</div>
+      </p>
+                </section>
+  </article>
+</main>
+
+  </div>
+
+  </div>
+
+                    </div>
+    </main>
+            <footer role="contentinfo">
+              <div>
+    <div id="block-home">
+  
+    
+      
+            <div class="body field"><p><a href="/drupaldump/">Finding The Way Home</a> @ 2011 - 2020</p>
+</div>
+      
+  </div>
+<div id="block-casper-powered" role="complementary">
+  
+    
+      <span>Powered by <a href="https://www.drupal.org">Drupal</a></span>
+  </div>
+
+  </div>
+
+        </footer>
+    </div>
+</body>
+
+  </div>
+
+    
+    <script type="application/json" data-drupal-selector="drupal-settings-json">{"path":{"baseUrl":"/drupaldump/","scriptPath":null,"pathPrefix":"","currentPath":"node\/220","currentPathIsAdmin":false,"isFront":false,"currentLanguage":"en"},"pluralDelimiter":"\u0003","suppressDeprecationErrors":true,"google_analytics":{"account":"UA-25017378-1","trackOutbound":true,"trackMailto":true,"trackDownload":true,"trackDownloadExtensions":"7z|aac|arc|arj|asf|asx|avi|bin|csv|doc(x|m)?|dot(x|m)?|exe|flv|gif|gz|gzip|hqx|jar|jpe?g|js|mp(2|3|4|e?g)|mov(ie)?|msi|msp|pdf|phps|png|ppt(x|m)?|pot(x|m)?|pps(x|m)?|ppam|sld(x|m)?|thmx|qtm?|ra(m|r)?|sea|sit|tar|tgz|torrent|txt|wav|wma|wmv|wpd|xls(x|m|b)?|xlt(x|m)|xlam|xml|z|zip"},"disqusComments":"drupaldump","disqus":{"domain":"drupaldump","url":"http:\/\/95.216.6.96:8088\/translating-taxonomy-summary-views","title":"Translating taxonomy summary in views","identifier":"node\/220","disable_mobile":false},"user":{"uid":0,"permissionsHash":"61d0b3aee71a501d8526c4a3ac79a2c1e6f537791b4ed94adeca4bcbf97c542c"}}</script>
+<script src="/drupaldump/sites/default/files/js/js_2TI3DKoAde-tDzv3_jAE9uNOl4laF37h3D1iN4gXU_w.js"></script>
+
+</html>

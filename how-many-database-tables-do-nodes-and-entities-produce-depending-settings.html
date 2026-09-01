@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" prefix="content: http://purl.org/rss/1.0/modules/content/  dc: http://purl.org/dc/terms/  foaf: http://xmlns.com/foaf/0.1/  og: http://ogp.me/ns#  rdfs: http://www.w3.org/2000/01/rdf-schema#  schema: http://schema.org/  sioc: http://rdfs.org/sioc/ns#  sioct: http://rdfs.org/sioc/types#  skos: http://www.w3.org/2004/02/skos/core#  xsd: http://www.w3.org/2001/XMLSchema# ">
+  <head>
+<meta charset="utf-8" />
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-25017378-1"></script>
+<script>window.dataLayer = window.dataLayer || [];function gtag(){dataLayer.push(arguments)};gtag("js", new Date());gtag("config", "UA-25017378-1", {"groups":"default","anonymize_ip":true,"allow_ad_personalization_signals":false});</script>
+<meta name="Generator" content="Drupal 8 (https://www.drupal.org)" />
+<meta name="MobileOptimized" content="width" />
+<meta name="HandheldFriendly" content="true" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="shortcut icon" href="/drupaldump/sites/default/files/12065725081662529858mszinger_Recycle_simple.ico" type="image/vnd.microsoft.icon" />
+<link rel="canonical" href="/drupaldump/how-many-database-tables-do-nodes-and-entities-produce-depending-settings" />
+<link rel="shortlink" href="/drupaldump/node/488" />
+<link rel="revision" href="/drupaldump/how-many-database-tables-do-nodes-and-entities-produce-depending-settings" />
+
+    <title>How many database tables do nodes and entities produce depending on settings | DrupalDump.com</title>
+    <link rel="stylesheet" media="all" href="/drupaldump/sites/default/files/css/css_AlJtUK5t4kiN78bTuJmj-RlnrwdMAgZ7cSkPQ8kQg08.css" />
+<link rel="stylesheet" media="all" href="/drupaldump/sites/default/files/css/css_bIJWoj7ddw1nKKt8k0N7ZLw5VA0VkhLoweEPaHldh1E.css" />
+
+    
+<!--[if lte IE 8]>
+<script src="/drupaldump/sites/default/files/js/js_VtafjXmRvoUgAzqzYTA3Wrjkx9wcWhjP0G4ZnnqRamA.js"></script>
+<![endif]-->
+
+        <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Merriweather:300,700,700italic,300italic|Open+Sans:700,400" />
+  </head>
+    <a href="#main-content" class="visually-hidden focusable skip-link">
+      Skip to main content
+    </a>
+    
+      <div class="dialog-off-canvas-main-canvas" data-off-canvas-main-canvas>
+    <body class="nav-closed">      <div>
+    <nav role="navigation" aria-labelledby="block-casper-main-menu-menu" id="block-casper-main-menu">
+            
+  <h2 class="visually-hidden" id="block-casper-main-menu-menu">Main navigation</h2>
+  
+
+        
+                    <div class="nav">
+        <h3 class="nav-title">Menu</h3>
+        <a href="#" class="nav-close">
+            <span class="hidden">Close</span>
+        </a>
+        <ul>
+                                        <li role="presentation" >
+                <a href="/drupaldump/" data-drupal-link-system-path="&lt;front&gt;">Home</a>
+                            </li>
+                                <li role="presentation" >
+                <a href="/drupaldump/posts-about/modules" data-drupal-link-system-path="taxonomy/term/17">Modules</a>
+                            </li>
+                                <li role="presentation" >
+                <a href="/drupaldump/posts-about/devops" data-drupal-link-system-path="taxonomy/term/19">System</a>
+                            </li>
+                                <li role="presentation" >
+                <a href="/drupaldump/posts-about/theming" data-drupal-link-system-path="taxonomy/term/10">Theming</a>
+                            </li>
+                                <li role="presentation" >
+                <a href="/drupaldump/contact/feedback" data-drupal-link-system-path="contact/feedback">Contact</a>
+                            </li>
+                </ul>
+        </div>
+    
+
+
+  </nav>
+
+  </div>
+
+<span class="nav-cover"></span>
+<div class="site-wrapper">
+<header class="main-header post-head no-cover" xmlns="http://www.w3.org/1999/html">
+    <nav class="main-nav  clearfix">
+                <a class="blog-logo" href="/drupaldump/"><img src="/drupaldump/sites/default/files/theme/backgrounds/drupal 8 logo isolated CMYK 72.png" /></a>
+                <a class="menu-button icon-menu" href="#"><span class="word">Menu</span></a>
+    </nav>
+</header>
+    
+<div class="highlighted">
+  <div>
+    <div data-drupal-messages-fallback class="hidden"></div>
+
+  </div>
+
+</div>
+    <main role="main">
+        <a id="main-content" tabindex="-1"></a>
+        <div class="layout-content">
+                              <div>
+    <div id="block-casper-content">
+  
+    
+      
+<main class="content" role="main">
+  <article class="post page">
+      <header class="post-header">
+                    <h1 class="post-title"><span class="field-wrapper">How many database tables do nodes and entities produce depending on settings</span>
+</h1>
+          	<p class="post-date">Tue, 04/02/2019</p>	
+      </header>
+      <section class="post-content">
+                    <p>
+            <div class="body field"><p>In this post I will determine how many DB tables does each option you choose make.<br />
+ </p>
+<p><strong>Lets start with NODE</strong>, make a basic node, with just title and body, when we enter data for it, it will populare 6 tables.</p>
+<p>1. node<br />
+2. node_revision<br />
+3. node__body<br />
+4. node_revision__body<br />
+5. node_field_data<br />
+6. node_field_revision</p>
+<p>So first 2 are for node entity and this stores some basic node info, like id, uid, lang code, 3 and 4 are for node body as we have body field.  5 and 6 are for node field data which are basically node entity properties or as they are called base fields and they are used for storing title, created, changed, uid that created node etc.  If we add new fields to node they will get 2 new tables, just like body field has. So it is important to notice that each filed will add 2 new tables as node entity is revisionable by default, you may never use revisions but drupal will act as if you do. It is also important to notice that translations do not add new tables, if you have many translations it will just be a new row in DB with different lang key.</p>
+<p>So that is nodes, they are set to work with mose options. To have optimized DB structure lets try entities and see how they behave.</p>
+<p><strong>So Entities can </strong>store data in properties and fields, or we can say they can be fieldable just like nodes, they can also be bundable, translatable and revisionable. Each of this feature will bring something extra to DB structure. Let's go with simple entity, which will have just some base fields.</p>
+<p>So if you create a new entity and add some base fields, whatever you add, even if it is translatable it will populate jos two DB tables. Lets say we created "plain_enty" as new entity, what will happen is that we will have this 2 DB tables.<br />
+1. plain_enty<br />
+2. plain_enty_field_data</p>
+<p>First table will have just basic entity data, like id, uuid and lang_code, and if we choose that this is bundable entity there would be one more column and that is type. This is what node table has from no 1. above as it is also entity that is bundable. Second table is table that holds base fields data, so if we add 10 base fields, it will all be in that table, BaseFields don't create new DB tables, they are all stored in that plain_enty_field_data which could help in your query building as there will be less innerjoins to get data. <strong>For creating entity for storing data I would recommend using this type of settings.</strong></p>
+<p>If we use revisions, once they are enabled they will again double the number of DB tables used for data. So as we had above 1 and 2 now we will have 3 and 4 with suffix _revision, which will hold revision, bundle and translation data. So 4 tables in total will be max.</p>
+<p>All this will change, if we use entities as fieldable. We can add fields to each entity, just like nodes, as much as we want, what will happen in that case is that each field will add new DB table and if it is revisionable entity then we will have 2 new tables per new field, which will in the end make many new DB fields if you have many fields.</p>
+<p>Many people use ECK module <a href="https://www.drupal.org/project/eck">https://www.drupal.org/project/eck</a><br />
+which by default doesn't make baseFields, but only makes new bundles with new fields which in turn make a lot of new DB tables. This is wrong in my opinion as if you are using entities as some kind of storage, you don't need fields, you can have it all done with baseFields which will make your DB less complex and your queries simpler.<br />
+ </p>
+</div>
+      
+      <div class="field-wrapper">
+              <div><a href="/drupaldump/taxonomy/term/24" hreflang="en">Drupal 8</a></div>
+          </div>
+  
+      <div class="field-wrapper">
+              <div><a href="/drupaldump/posts-about/modules" hreflang="en">Modules</a></div>
+          </div>
+  
+            <div class="field-wrapper"><div id="disqus_thread"><noscript>
+  <p>
+    <a href="http://drupaldump.disqus.com/">View the discussion thread.</a>
+  </p>
+</noscript>
+</div>
+</div>
+      </p>
+                </section>
+  </article>
+</main>
+
+  </div>
+
+  </div>
+
+                    </div>
+    </main>
+            <footer role="contentinfo">
+              <div>
+    <div id="block-home">
+  
+    
+      
+            <div class="body field"><p><a href="/drupaldump/">Finding The Way Home</a> @ 2011 - 2020</p>
+</div>
+      
+  </div>
+<div id="block-casper-powered" role="complementary">
+  
+    
+      <span>Powered by <a href="https://www.drupal.org">Drupal</a></span>
+  </div>
+
+  </div>
+
+        </footer>
+    </div>
+</body>
+
+  </div>
+
+    
+    <script type="application/json" data-drupal-selector="drupal-settings-json">{"path":{"baseUrl":"/drupaldump/","scriptPath":null,"pathPrefix":"","currentPath":"node\/488","currentPathIsAdmin":false,"isFront":false,"currentLanguage":"en"},"pluralDelimiter":"\u0003","suppressDeprecationErrors":true,"google_analytics":{"account":"UA-25017378-1","trackOutbound":true,"trackMailto":true,"trackDownload":true,"trackDownloadExtensions":"7z|aac|arc|arj|asf|asx|avi|bin|csv|doc(x|m)?|dot(x|m)?|exe|flv|gif|gz|gzip|hqx|jar|jpe?g|js|mp(2|3|4|e?g)|mov(ie)?|msi|msp|pdf|phps|png|ppt(x|m)?|pot(x|m)?|pps(x|m)?|ppam|sld(x|m)?|thmx|qtm?|ra(m|r)?|sea|sit|tar|tgz|torrent|txt|wav|wma|wmv|wpd|xls(x|m|b)?|xlt(x|m)|xlam|xml|z|zip"},"disqusComments":"drupaldump","disqus":{"domain":"drupaldump","url":"http:\/\/95.216.6.96:8088\/how-many-database-tables-do-nodes-and-entities-produce-depending-settings","title":"How many database tables do nodes and entities produce depending on settings","identifier":"node\/488","disable_mobile":false},"user":{"uid":0,"permissionsHash":"61d0b3aee71a501d8526c4a3ac79a2c1e6f537791b4ed94adeca4bcbf97c542c"}}</script>
+<script src="/drupaldump/sites/default/files/js/js_2TI3DKoAde-tDzv3_jAE9uNOl4laF37h3D1iN4gXU_w.js"></script>
+
+</html>

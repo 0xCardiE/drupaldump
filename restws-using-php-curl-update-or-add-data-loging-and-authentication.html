@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" prefix="content: http://purl.org/rss/1.0/modules/content/  dc: http://purl.org/dc/terms/  foaf: http://xmlns.com/foaf/0.1/  og: http://ogp.me/ns#  rdfs: http://www.w3.org/2000/01/rdf-schema#  schema: http://schema.org/  sioc: http://rdfs.org/sioc/ns#  sioct: http://rdfs.org/sioc/types#  skos: http://www.w3.org/2004/02/skos/core#  xsd: http://www.w3.org/2001/XMLSchema# ">
+  <head>
+<meta charset="utf-8" />
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-25017378-1"></script>
+<script>window.dataLayer = window.dataLayer || [];function gtag(){dataLayer.push(arguments)};gtag("js", new Date());gtag("config", "UA-25017378-1", {"groups":"default","anonymize_ip":true,"allow_ad_personalization_signals":false});</script>
+<meta name="Generator" content="Drupal 8 (https://www.drupal.org)" />
+<meta name="MobileOptimized" content="width" />
+<meta name="HandheldFriendly" content="true" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="shortcut icon" href="/drupaldump/sites/default/files/12065725081662529858mszinger_Recycle_simple.ico" type="image/vnd.microsoft.icon" />
+<link rel="canonical" href="/drupaldump/restws-using-php-curl-update-or-add-data-loging-and-authentication" />
+<link rel="shortlink" href="/drupaldump/node/334" />
+<link rel="revision" href="/drupaldump/restws-using-php-curl-update-or-add-data-loging-and-authentication" />
+
+    <title>RESTws using PHP-CURL to update or add data. Loging in and authentication | DrupalDump.com</title>
+    <link rel="stylesheet" media="all" href="/drupaldump/sites/default/files/css/css_AlJtUK5t4kiN78bTuJmj-RlnrwdMAgZ7cSkPQ8kQg08.css" />
+<link rel="stylesheet" media="all" href="/drupaldump/sites/default/files/css/css_bIJWoj7ddw1nKKt8k0N7ZLw5VA0VkhLoweEPaHldh1E.css" />
+
+    
+<!--[if lte IE 8]>
+<script src="/drupaldump/sites/default/files/js/js_VtafjXmRvoUgAzqzYTA3Wrjkx9wcWhjP0G4ZnnqRamA.js"></script>
+<![endif]-->
+
+        <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Merriweather:300,700,700italic,300italic|Open+Sans:700,400" />
+  </head>
+    <a href="#main-content" class="visually-hidden focusable skip-link">
+      Skip to main content
+    </a>
+    
+      <div class="dialog-off-canvas-main-canvas" data-off-canvas-main-canvas>
+    <body class="nav-closed">      <div>
+    <nav role="navigation" aria-labelledby="block-casper-main-menu-menu" id="block-casper-main-menu">
+            
+  <h2 class="visually-hidden" id="block-casper-main-menu-menu">Main navigation</h2>
+  
+
+        
+                    <div class="nav">
+        <h3 class="nav-title">Menu</h3>
+        <a href="#" class="nav-close">
+            <span class="hidden">Close</span>
+        </a>
+        <ul>
+                                        <li role="presentation" >
+                <a href="/drupaldump/" data-drupal-link-system-path="&lt;front&gt;">Home</a>
+                            </li>
+                                <li role="presentation" >
+                <a href="/drupaldump/posts-about/modules" data-drupal-link-system-path="taxonomy/term/17">Modules</a>
+                            </li>
+                                <li role="presentation" >
+                <a href="/drupaldump/posts-about/devops" data-drupal-link-system-path="taxonomy/term/19">System</a>
+                            </li>
+                                <li role="presentation" >
+                <a href="/drupaldump/posts-about/theming" data-drupal-link-system-path="taxonomy/term/10">Theming</a>
+                            </li>
+                                <li role="presentation" >
+                <a href="/drupaldump/contact/feedback" data-drupal-link-system-path="contact/feedback">Contact</a>
+                            </li>
+                </ul>
+        </div>
+    
+
+
+  </nav>
+
+  </div>
+
+<span class="nav-cover"></span>
+<div class="site-wrapper">
+<header class="main-header post-head no-cover" xmlns="http://www.w3.org/1999/html">
+    <nav class="main-nav  clearfix">
+                <a class="blog-logo" href="/drupaldump/"><img src="/drupaldump/sites/default/files/theme/backgrounds/drupal 8 logo isolated CMYK 72.png" /></a>
+                <a class="menu-button icon-menu" href="#"><span class="word">Menu</span></a>
+    </nav>
+</header>
+    
+<div class="highlighted">
+  <div>
+    <div data-drupal-messages-fallback class="hidden"></div>
+
+  </div>
+
+</div>
+    <main role="main">
+        <a id="main-content" tabindex="-1"></a>
+        <div class="layout-content">
+                              <div>
+    <div id="block-casper-content">
+  
+    
+      
+<main class="content" role="main">
+  <article class="post page">
+      <header class="post-header">
+                    <h1 class="post-title"><span class="field-wrapper">RESTws using PHP-CURL to update or add data. Loging in and authentication </span>
+</h1>
+          	<p class="post-date">Wed, 09/02/2015</p>	
+      </header>
+      <section class="post-content">
+                    <p>
+            <div class="body field"><p>Although there is an article here about it <a href="http://blog.ampli.fi/creating-drupal-7-nodes-with-php-via-the-restws-api/">http://blog.ampli.fi/creating-drupal-7-nodes-with-php-via-the-restws-ap…</a><br />
+I will copy mine code I used to test, just in case.</p>
+<p>Things to watch out for is NOT to include JSON suffix, when using CURL</p>
+<p><strong>     * Update: HTTP PUT /<entity type="" name="">/<entity id="">.<br />
+<format>
+       or      HTTP PUT /<entity type="" name="">/<entity id=""> (requires HTTP<br />
+       Content-Type header set to the MIME type of the posted format)</entity></entity></format></entity></entity></strong></p>
+<p>and the hard limit when querying.</p>
+<p><strong>The hard limit of 100 resources per request ensures that the database and webserver<br />
+won't overload. The hard limit is defined by the system variable<br />
+restws_query_max_limit, which can be overridden if necessary.</strong></p>
+<p>Also, dont make a mistake and try to use PUT or POST on non entity endpoints. Like I did with</p>
+<p><a href="http://dev.local/commerce_product.json?sku=569">http://dev.local/commerce_product.json?sku=569</a> </p>
+<p>which is just a list of data and can't be used other then to read(GET).</p>
+<pre><code class="language-php">$site = "dev.local";
+$user = "restws_236216";
+$pass = "restws";
+$crl = curl_init();
+curl_setopt($crl, CURLOPT_RETURNTRANSFER, 1);
+curl_setopt($crl, CURLOPT_USERAGENT, 'PHP script');
+curl_setopt($crl, CURLOPT_COOKIEJAR, "/tmp/cookie.txt");
+curl_setopt($crl, CURLOPT_COOKIEFILE, '/tmp/cookie.txt');
+
+// Login
+curl_setopt($crl, CURLOPT_URL,"http://" . $site . "/user/login");
+curl_setopt($crl, CURLOPT_POST, TRUE);
+curl_setopt($crl, CURLOPT_POSTFIELDS, "name=" . $user . "&amp;pass=" . $pass . "&amp;form_id=user_login");
+curl_setopt($crl, CURLOPT_COOKIE, session_name() . '=' . session_id());
+$ret = new stdClass;
+$ret-&gt;response = curl_exec($crl);
+$ret-&gt;error = curl_error($crl);
+$ret-&gt;info = curl_getinfo($crl);
+
+// Get RESTWS token.
+curl_setopt($crl, CURLOPT_HTTPGET, TRUE);
+curl_setopt($crl, CURLOPT_URL, 'http://' . $site . '/restws/session/token');
+$ret = new stdClass;
+$ret-&gt;response = curl_exec($crl);
+$ret-&gt;error = curl_error($crl);
+$ret-&gt;info = curl_getinfo($crl);
+$token = $ret-&gt;response;
+
+// Do the API call to create the node. Places tagged with "UPDATING" relate to updating existing nodes instead of creating new ones.
+date_default_timezone_set("Europe/Helsinki");
+$data = json_encode(array(
+//'field_section_1_title' =&gt; 'range_page', // UPDATING: Don't try to set the "type" for existing nodes.
+    'commerce_price_aud' =&gt; array (
+      'amount' =&gt; 320,
+      'currency_code' =&gt; 'AUD',
+    ),
+'title' =&gt; 'It is a new article, created by ' . $user . ' at ' . date('c'),
+
+));
+
+// UPDATING: Use PUT instead of POST when updating a node
+//curl_setopt($crl, CURLOPT_POST, TRUE);
+//curl_setopt($crl, CURLOPT_POST, FALSE);
+curl_setopt($crl, CURLOPT_CUSTOMREQUEST, "PUT");
+
+// UPDATING: Add the node id when updating a node
+//curl_setopt($crl, CURLOPT_URL, 'http://' . $site . '/node/1');
+curl_setopt($crl, CURLOPT_URL, 'http://' . $site . '/commerce_product/1092'); 
+
+curl_setopt($crl, CURLOPT_HTTPGET, FALSE);
+curl_setopt($crl, CURLOPT_POSTFIELDS, $data);
+curl_setopt($crl, CURLOPT_HTTPHEADER, array('Content-Type: application/json', 'X-CSRF-Token: ' . $token));
+$ret = new stdClass;
+$ret-&gt;response = curl_exec($crl);
+$ret-&gt;error = curl_error($crl);
+$ret-&gt;info = curl_getinfo($crl);
+
+var_dump($data);
+curl_close ($crl);
+unset($crl);
+</code></pre></div>
+      
+      <div class="field-wrapper">
+              <div><a href="/drupaldump/drupal-7" hreflang="en">Drupal 7</a></div>
+          </div>
+  
+      <div class="field-wrapper">
+              <div><a href="/drupaldump/posts-about/modules" hreflang="en">Modules</a></div>
+          </div>
+  
+            <div class="field-wrapper"><div id="disqus_thread"><noscript>
+  <p>
+    <a href="http://drupaldump.disqus.com/">View the discussion thread.</a>
+  </p>
+</noscript>
+</div>
+</div>
+      </p>
+                </section>
+  </article>
+</main>
+
+  </div>
+
+  </div>
+
+                    </div>
+    </main>
+            <footer role="contentinfo">
+              <div>
+    <div id="block-home">
+  
+    
+      
+            <div class="body field"><p><a href="/drupaldump/">Finding The Way Home</a> @ 2011 - 2020</p>
+</div>
+      
+  </div>
+<div id="block-casper-powered" role="complementary">
+  
+    
+      <span>Powered by <a href="https://www.drupal.org">Drupal</a></span>
+  </div>
+
+  </div>
+
+        </footer>
+    </div>
+</body>
+
+  </div>
+
+    
+    <script type="application/json" data-drupal-selector="drupal-settings-json">{"path":{"baseUrl":"/drupaldump/","scriptPath":null,"pathPrefix":"","currentPath":"node\/334","currentPathIsAdmin":false,"isFront":false,"currentLanguage":"en"},"pluralDelimiter":"\u0003","suppressDeprecationErrors":true,"google_analytics":{"account":"UA-25017378-1","trackOutbound":true,"trackMailto":true,"trackDownload":true,"trackDownloadExtensions":"7z|aac|arc|arj|asf|asx|avi|bin|csv|doc(x|m)?|dot(x|m)?|exe|flv|gif|gz|gzip|hqx|jar|jpe?g|js|mp(2|3|4|e?g)|mov(ie)?|msi|msp|pdf|phps|png|ppt(x|m)?|pot(x|m)?|pps(x|m)?|ppam|sld(x|m)?|thmx|qtm?|ra(m|r)?|sea|sit|tar|tgz|torrent|txt|wav|wma|wmv|wpd|xls(x|m|b)?|xlt(x|m)|xlam|xml|z|zip"},"disqusComments":"drupaldump","disqus":{"domain":"drupaldump","url":"http:\/\/95.216.6.96:8088\/restws-using-php-curl-update-or-add-data-loging-and-authentication","title":"RESTws using PHP-CURL to update or add data. Loging in and authentication ","identifier":"node\/334","disable_mobile":false},"user":{"uid":0,"permissionsHash":"61d0b3aee71a501d8526c4a3ac79a2c1e6f537791b4ed94adeca4bcbf97c542c"}}</script>
+<script src="/drupaldump/sites/default/files/js/js_2TI3DKoAde-tDzv3_jAE9uNOl4laF37h3D1iN4gXU_w.js"></script>
+
+</html>

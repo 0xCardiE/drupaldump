@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" prefix="content: http://purl.org/rss/1.0/modules/content/  dc: http://purl.org/dc/terms/  foaf: http://xmlns.com/foaf/0.1/  og: http://ogp.me/ns#  rdfs: http://www.w3.org/2000/01/rdf-schema#  schema: http://schema.org/  sioc: http://rdfs.org/sioc/ns#  sioct: http://rdfs.org/sioc/types#  skos: http://www.w3.org/2004/02/skos/core#  xsd: http://www.w3.org/2001/XMLSchema# ">
+  <head>
+<meta charset="utf-8" />
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-25017378-1"></script>
+<script>window.dataLayer = window.dataLayer || [];function gtag(){dataLayer.push(arguments)};gtag("js", new Date());gtag("config", "UA-25017378-1", {"groups":"default","anonymize_ip":true,"allow_ad_personalization_signals":false});</script>
+<meta name="Generator" content="Drupal 8 (https://www.drupal.org)" />
+<meta name="MobileOptimized" content="width" />
+<meta name="HandheldFriendly" content="true" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="shortcut icon" href="/drupaldump/sites/default/files/12065725081662529858mszinger_Recycle_simple.ico" type="image/vnd.microsoft.icon" />
+<link rel="canonical" href="/drupaldump/loading-content-ajax-link-anywhere" />
+<link rel="shortlink" href="/drupaldump/node/332" />
+<link rel="revision" href="/drupaldump/loading-content-ajax-link-anywhere" />
+
+    <title>Loading content with AJAX link, anywhere | DrupalDump.com</title>
+    <link rel="stylesheet" media="all" href="/drupaldump/sites/default/files/css/css_AlJtUK5t4kiN78bTuJmj-RlnrwdMAgZ7cSkPQ8kQg08.css" />
+<link rel="stylesheet" media="all" href="/drupaldump/sites/default/files/css/css_bIJWoj7ddw1nKKt8k0N7ZLw5VA0VkhLoweEPaHldh1E.css" />
+
+    
+<!--[if lte IE 8]>
+<script src="/drupaldump/sites/default/files/js/js_VtafjXmRvoUgAzqzYTA3Wrjkx9wcWhjP0G4ZnnqRamA.js"></script>
+<![endif]-->
+
+        <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Merriweather:300,700,700italic,300italic|Open+Sans:700,400" />
+  </head>
+    <a href="#main-content" class="visually-hidden focusable skip-link">
+      Skip to main content
+    </a>
+    
+      <div class="dialog-off-canvas-main-canvas" data-off-canvas-main-canvas>
+    <body class="nav-closed">      <div>
+    <nav role="navigation" aria-labelledby="block-casper-main-menu-menu" id="block-casper-main-menu">
+            
+  <h2 class="visually-hidden" id="block-casper-main-menu-menu">Main navigation</h2>
+  
+
+        
+                    <div class="nav">
+        <h3 class="nav-title">Menu</h3>
+        <a href="#" class="nav-close">
+            <span class="hidden">Close</span>
+        </a>
+        <ul>
+                                        <li role="presentation" >
+                <a href="/drupaldump/" data-drupal-link-system-path="&lt;front&gt;">Home</a>
+                            </li>
+                                <li role="presentation" >
+                <a href="/drupaldump/posts-about/modules" data-drupal-link-system-path="taxonomy/term/17">Modules</a>
+                            </li>
+                                <li role="presentation" >
+                <a href="/drupaldump/posts-about/devops" data-drupal-link-system-path="taxonomy/term/19">System</a>
+                            </li>
+                                <li role="presentation" >
+                <a href="/drupaldump/posts-about/theming" data-drupal-link-system-path="taxonomy/term/10">Theming</a>
+                            </li>
+                                <li role="presentation" >
+                <a href="/drupaldump/contact/feedback" data-drupal-link-system-path="contact/feedback">Contact</a>
+                            </li>
+                </ul>
+        </div>
+    
+
+
+  </nav>
+
+  </div>
+
+<span class="nav-cover"></span>
+<div class="site-wrapper">
+<header class="main-header post-head no-cover" xmlns="http://www.w3.org/1999/html">
+    <nav class="main-nav  clearfix">
+                <a class="blog-logo" href="/drupaldump/"><img src="/drupaldump/sites/default/files/theme/backgrounds/drupal 8 logo isolated CMYK 72.png" /></a>
+                <a class="menu-button icon-menu" href="#"><span class="word">Menu</span></a>
+    </nav>
+</header>
+    
+<div class="highlighted">
+  <div>
+    <div data-drupal-messages-fallback class="hidden"></div>
+
+  </div>
+
+</div>
+    <main role="main">
+        <a id="main-content" tabindex="-1"></a>
+        <div class="layout-content">
+                              <div>
+    <div id="block-casper-content">
+  
+    
+      
+<main class="content" role="main">
+  <article class="post page">
+      <header class="post-header">
+                    <h1 class="post-title"><span class="field-wrapper">Loading content with AJAX link, anywhere</span>
+</h1>
+          	<p class="post-date">Mon, 08/17/2015</p>	
+      </header>
+      <section class="post-content">
+                    <p>
+            <div class="body field"><p>There are different methods and bunch of modules to ajaxify links in drupal. There are different solutions with code, like this one<br />
+<a href="https://www.drupal.org/node/2046693">https://www.drupal.org/node/2046693</a><br />
+and there are more simple I would add, like this one<br />
+<a href="http://codekarate.com/blog/drupal-7-javascript-ajax-framework-example-link">http://codekarate.com/blog/drupal-7-javascript-ajax-framework-example-l…</a></p>
+<p>I used variation of the codekarate tutorial. To put my AJAX link anywhere. I used template, to be more precise I added a custom form element in rendered array. Like this</p>
+<pre><code class="language-php">$content['helpful-comments'] = array(
+  '#type' =&gt; 'link',
+  '#title' =&gt; t('Most helpful first'),
+  '#href' =&gt; 'comments/helpful/nojs/' . $node-&gt;nid,
+  '#ajax' =&gt; array(
+    'effect' =&gt; 'fade',
+    ),
+  );</code></pre><p>
+Then I rendered that print render($content['helpful-comments']) to get full AJAX link.<br />
+And added that link to menu items in custom module</p>
+<pre><code class="language-php">  $items['comments/helpful/%/%'] = array( 
+    'title' =&gt; 'Ajax test callback',
+    'type' =&gt; MENU_CALLBACK,
+    'page callback' =&gt; 'my_module_custom_comments_callback',
+    'page arguments' =&gt; array(1,2,3),
+    'access arguments' =&gt; array('access content'),
+    );
+</code></pre><p>(dont forget to clear cache here, menu cache needs to be cleared)</p>
+<p>Then In custom module function I did my actions. I loaded view with views_embed_view  and added that content on proper div<br />
+with <strong>ajax_command_replace</strong>. Works like charm.</p>
+<pre><code class="language-php">
+/**
+ * Ajax callback to display the current time.
+ */
+function my_module_custom_comments_callback($url, $ajax, $nodeid) {
+
+  if ($ajax == 'ajax') {
+    // Check which view are we dealing with
+    if ($url == "helpful"){
+      $view = "entity_view_1";
+      $class = "comments-most-helpful";
+    }
+    else if ($url == "newest"){
+      $view = "entity_view_2";
+      $class = "comments-newest";
+    }
+    // Create content variable
+    $content = views_embed_view('product_reviews', $view, $nodeid);
+
+    // Standard Ajax thing
+    $commands = array();
+    // Ajax command to replace the #ajax-display element with the current time.
+    $commands[] = ajax_command_replace('.' . $class, "<div class="&quot; . $class . &quot;">" . $content . "<p>");<br />
+    // Add a visual "changed" marker to the '#ajax-display' element.<br />
+    $commands[] = ajax_command_changed('.' . $class);<br />
+    // Menu 'page callback' and #ajax['callback'] functions are supposed to<br />
+    // return render arrays. If returning an Ajax commands array, it must be<br />
+    // encapsulated in a render array structure.<br />
+    ajax_deliver(array('#type' =&gt; 'ajax', '#commands' =&gt; $commands));<br />
+  }<br />
+}</p>
+<p></p>
+</div></code></pre></div>
+      
+      <div class="field-wrapper">
+              <div><a href="/drupaldump/drupal-7" hreflang="en">Drupal 7</a></div>
+          </div>
+  
+      <div class="field-wrapper">
+              <div><a href="/drupaldump/posts-about/modules" hreflang="en">Modules</a></div>
+          </div>
+  
+            <div class="field-wrapper"><div id="disqus_thread"><noscript>
+  <p>
+    <a href="http://drupaldump.disqus.com/">View the discussion thread.</a>
+  </p>
+</noscript>
+</div>
+</div>
+      </p>
+                </section>
+  </article>
+</main>
+
+  </div>
+
+  </div>
+
+                    </div>
+    </main>
+            <footer role="contentinfo">
+              <div>
+    <div id="block-home">
+  
+    
+      
+            <div class="body field"><p><a href="/drupaldump/">Finding The Way Home</a> @ 2011 - 2020</p>
+</div>
+      
+  </div>
+<div id="block-casper-powered" role="complementary">
+  
+    
+      <span>Powered by <a href="https://www.drupal.org">Drupal</a></span>
+  </div>
+
+  </div>
+
+        </footer>
+    </div>
+</body>
+
+  </div>
+
+    
+    <script type="application/json" data-drupal-selector="drupal-settings-json">{"path":{"baseUrl":"/drupaldump/","scriptPath":null,"pathPrefix":"","currentPath":"node\/332","currentPathIsAdmin":false,"isFront":false,"currentLanguage":"en"},"pluralDelimiter":"\u0003","suppressDeprecationErrors":true,"google_analytics":{"account":"UA-25017378-1","trackOutbound":true,"trackMailto":true,"trackDownload":true,"trackDownloadExtensions":"7z|aac|arc|arj|asf|asx|avi|bin|csv|doc(x|m)?|dot(x|m)?|exe|flv|gif|gz|gzip|hqx|jar|jpe?g|js|mp(2|3|4|e?g)|mov(ie)?|msi|msp|pdf|phps|png|ppt(x|m)?|pot(x|m)?|pps(x|m)?|ppam|sld(x|m)?|thmx|qtm?|ra(m|r)?|sea|sit|tar|tgz|torrent|txt|wav|wma|wmv|wpd|xls(x|m|b)?|xlt(x|m)|xlam|xml|z|zip"},"disqusComments":"drupaldump","disqus":{"domain":"drupaldump","url":"http:\/\/95.216.6.96:8088\/loading-content-ajax-link-anywhere","title":"Loading content with AJAX link, anywhere","identifier":"node\/332","disable_mobile":false},"user":{"uid":0,"permissionsHash":"61d0b3aee71a501d8526c4a3ac79a2c1e6f537791b4ed94adeca4bcbf97c542c"}}</script>
+<script src="/drupaldump/sites/default/files/js/js_2TI3DKoAde-tDzv3_jAE9uNOl4laF37h3D1iN4gXU_w.js"></script>
+
+</html>

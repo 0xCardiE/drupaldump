@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" prefix="content: http://purl.org/rss/1.0/modules/content/  dc: http://purl.org/dc/terms/  foaf: http://xmlns.com/foaf/0.1/  og: http://ogp.me/ns#  rdfs: http://www.w3.org/2000/01/rdf-schema#  schema: http://schema.org/  sioc: http://rdfs.org/sioc/ns#  sioct: http://rdfs.org/sioc/types#  skos: http://www.w3.org/2004/02/skos/core#  xsd: http://www.w3.org/2001/XMLSchema# ">
+  <head>
+<meta charset="utf-8" />
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-25017378-1"></script>
+<script>window.dataLayer = window.dataLayer || [];function gtag(){dataLayer.push(arguments)};gtag("js", new Date());gtag("config", "UA-25017378-1", {"groups":"default","anonymize_ip":true,"allow_ad_personalization_signals":false});</script>
+<meta name="Generator" content="Drupal 8 (https://www.drupal.org)" />
+<meta name="MobileOptimized" content="width" />
+<meta name="HandheldFriendly" content="true" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="shortcut icon" href="/drupaldump/sites/default/files/12065725081662529858mszinger_Recycle_simple.ico" type="image/vnd.microsoft.icon" />
+<link rel="canonical" href="/drupaldump/right-way-migrate-your-bashprofile-zsh" />
+<link rel="shortlink" href="/drupaldump/node/594" />
+<link rel="revision" href="/drupaldump/right-way-migrate-your-bashprofile-zsh" />
+
+    <title>The right way to migrate your bash_profile to zsh | DrupalDump.com</title>
+    <link rel="stylesheet" media="all" href="/drupaldump/sites/default/files/css/css_AlJtUK5t4kiN78bTuJmj-RlnrwdMAgZ7cSkPQ8kQg08.css" />
+<link rel="stylesheet" media="all" href="/drupaldump/sites/default/files/css/css_bIJWoj7ddw1nKKt8k0N7ZLw5VA0VkhLoweEPaHldh1E.css" />
+
+    
+<!--[if lte IE 8]>
+<script src="/drupaldump/sites/default/files/js/js_VtafjXmRvoUgAzqzYTA3Wrjkx9wcWhjP0G4ZnnqRamA.js"></script>
+<![endif]-->
+
+        <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Merriweather:300,700,700italic,300italic|Open+Sans:700,400" />
+  </head>
+    <a href="#main-content" class="visually-hidden focusable skip-link">
+      Skip to main content
+    </a>
+    
+      <div class="dialog-off-canvas-main-canvas" data-off-canvas-main-canvas>
+    <body class="nav-closed">      <div>
+    <nav role="navigation" aria-labelledby="block-casper-main-menu-menu" id="block-casper-main-menu">
+            
+  <h2 class="visually-hidden" id="block-casper-main-menu-menu">Main navigation</h2>
+  
+
+        
+                    <div class="nav">
+        <h3 class="nav-title">Menu</h3>
+        <a href="#" class="nav-close">
+            <span class="hidden">Close</span>
+        </a>
+        <ul>
+                                        <li role="presentation" >
+                <a href="/drupaldump/" data-drupal-link-system-path="&lt;front&gt;">Home</a>
+                            </li>
+                                <li role="presentation" >
+                <a href="/drupaldump/posts-about/modules" data-drupal-link-system-path="taxonomy/term/17">Modules</a>
+                            </li>
+                                <li role="presentation" >
+                <a href="/drupaldump/posts-about/devops" data-drupal-link-system-path="taxonomy/term/19">System</a>
+                            </li>
+                                <li role="presentation" >
+                <a href="/drupaldump/posts-about/theming" data-drupal-link-system-path="taxonomy/term/10">Theming</a>
+                            </li>
+                                <li role="presentation" >
+                <a href="/drupaldump/contact/feedback" data-drupal-link-system-path="contact/feedback">Contact</a>
+                            </li>
+                </ul>
+        </div>
+    
+
+
+  </nav>
+
+  </div>
+
+<span class="nav-cover"></span>
+<div class="site-wrapper">
+<header class="main-header post-head no-cover" xmlns="http://www.w3.org/1999/html">
+    <nav class="main-nav  clearfix">
+                <a class="blog-logo" href="/drupaldump/"><img src="/drupaldump/sites/default/files/theme/backgrounds/drupal 8 logo isolated CMYK 72.png" /></a>
+                <a class="menu-button icon-menu" href="#"><span class="word">Menu</span></a>
+    </nav>
+</header>
+    
+<div class="highlighted">
+  <div>
+    <div data-drupal-messages-fallback class="hidden"></div>
+
+  </div>
+
+</div>
+    <main role="main">
+        <a id="main-content" tabindex="-1"></a>
+        <div class="layout-content">
+                              <div>
+    <div id="block-casper-content">
+  
+    
+      
+<main class="content" role="main">
+  <article class="post page">
+      <header class="post-header">
+                    <h1 class="post-title"><span class="field-wrapper">The right way to migrate your bash_profile to zsh</span>
+</h1>
+          	<p class="post-date">Mon, 07/19/2021</p>	
+      </header>
+      <section class="post-content">
+                    <p>
+            <div class="body field"><h1>The right way to migrate your bash_profile to zsh</h1>
+<h2>It's not only about zshrc</h2>
+<p>I’ve upgraded my Mac from macOS Mojave to macOS Catalina and the first thing I noticed is that <a href="https://es.wikipedia.org/wiki/Zsh" rel="nofollow" target="_blank">zsh</a> is the new default shell, leaving Bash behind. I decided to switch but I found a few inconveniences with the setup, mainly with porting over my existing <code>bash_profile</code> to <code>zsh</code>.</p>
+<h1>zsh startup files</h1>
+<p><code>bash_profile</code> is bash specific, whereas <code>zsh</code> has its own set of <a href="http://zsh.sourceforge.net/Intro/intro_3.html" rel="nofollow" target="_blank">startup files</a>. I’ve seen people generally accept the suggestion of moving everything from <code>.bash_profile</code> to <code>.zshrc</code>. It definitely works, but it’s not the strict appropriate way to do it.</p>
+<h2>Enter <code>.zshenv</code></h2>
+<p>zsh introduces 5 <a href="http://zsh.sourceforge.net/Intro/intro_3.html" rel="nofollow" target="_blank">startup files</a>, each one sourced depending on the type of shell invocation. The two most important are <code>.zshrc</code> and <code>.zshenv</code> which, according to the <a href="https://linux.die.net/man/1/zsh" rel="nofollow" target="_blank">man page</a> and <a href="https://www.reddit.com/r/zsh/comments/ewzrr6/etczshenv_vs_etczshzshenv/fg5uj6j/" rel="nofollow" target="_blank">some</a> <a href="http://zsh.sourceforge.net/Intro/intro_3.html" rel="nofollow" target="_blank">other</a> <a href="https://unix.stackexchange.com/a/71258" rel="nofollow" target="_blank">resources</a> , works like this:</p>
+<ul>
+<li><strong><code>.zshenv</code></strong>: Sourced on <strong>all invocations of the shell</strong>. It often contains exported variables that should be available to other programs. For example, <code>$PATH</code>.</li>
+<li><strong><code>.zshrc</code></strong>: Sourced in <strong>interactive shells only</strong>. It should contain commands to set up aliases, functions, options, key bindings, etc.</li>
+</ul>
+<p>According to this, if you rely solely on <code>.zshrc</code>, your non-interactive shell scripts won’t work if they depend on the <code>$PATH</code>.</p>
+<blockquote><p>Your <code>$PATH</code> and any other important ENV variable should be set in <code>.zshenv</code>. The rest can go into <code>.zshrc</code>.</p>
+</blockquote>
+<h1>Splitting instead of migrating</h1>
+<p>To put it in layman’s terms:</p>
+<ol>
+<li>Copy your <code>$PATH</code> statements from <code>~/.bash_profile</code> and copy them to <code>~/.zshenv</code> (create the file if you don’t have it).</li>
+<li>Copy your alias, functions, key bindings and more from <code>~/.bash_profile</code> to <code>~/.zshrc</code>.</li>
+<li>Restart your terminal</li>
+</ol>
+<h1>Bonus</h1>
+<h2>Custom alias and functions</h2>
+<p>I keep my alias and functions in a separate file so that it doesn’t clutter <code>zshrc</code>. You can try to do the same:</p>
+<ol>
+<li>Copy your custom alias and functions from <code>~/.zshrc</code></li>
+<li>Paste these commands in a file called <code>~/.custom-alias</code></li>
+<li>Put this line at the end of your <code>.zshrc</code>: <code>source ~/.custom-alias</code></li>
+</ol>
+<h2>VSCode migration</h2>
+<p>VSCode will not catch up <code>zsh</code> as the default shell automatically. Adjust this with the following steps:</p>
+<ol>
+<li>Open VSCode settings. Mac users can do <code>CMD + Shift + P</code> and type “settings”.</li>
+<li>Open the JSON view (top right button)</li>
+<li>
+<p>Type this at the end of the file:</p>
+<pre>
+<code>"terminal.integrated.shell.osx": "/bin/zsh"</code></pre></li>
+<li>Restart VSCode.</li>
+</ol>
+</div>
+      
+      <div class="field-wrapper">
+              <div><a href="/drupaldump/taxonomy/term/24" hreflang="en">Drupal 8</a></div>
+              <div><a href="/drupaldump/taxonomy/term/34" hreflang="en">Drupal 9</a></div>
+          </div>
+  
+      <div class="field-wrapper">
+              <div><a href="/drupaldump/posts-about/cli" hreflang="en">CLI</a></div>
+          </div>
+  
+            <div class="field-wrapper"><div id="disqus_thread"><noscript>
+  <p>
+    <a href="http://drupaldump.disqus.com/">View the discussion thread.</a>
+  </p>
+</noscript>
+</div>
+</div>
+      </p>
+                </section>
+  </article>
+</main>
+
+  </div>
+
+  </div>
+
+                    </div>
+    </main>
+            <footer role="contentinfo">
+              <div>
+    <div id="block-home">
+  
+    
+      
+            <div class="body field"><p><a href="/drupaldump/">Finding The Way Home</a> @ 2011 - 2020</p>
+</div>
+      
+  </div>
+<div id="block-casper-powered" role="complementary">
+  
+    
+      <span>Powered by <a href="https://www.drupal.org">Drupal</a></span>
+  </div>
+
+  </div>
+
+        </footer>
+    </div>
+</body>
+
+  </div>
+
+    
+    <script type="application/json" data-drupal-selector="drupal-settings-json">{"path":{"baseUrl":"/drupaldump/","scriptPath":null,"pathPrefix":"","currentPath":"node\/594","currentPathIsAdmin":false,"isFront":false,"currentLanguage":"en"},"pluralDelimiter":"\u0003","suppressDeprecationErrors":true,"google_analytics":{"account":"UA-25017378-1","trackOutbound":true,"trackMailto":true,"trackDownload":true,"trackDownloadExtensions":"7z|aac|arc|arj|asf|asx|avi|bin|csv|doc(x|m)?|dot(x|m)?|exe|flv|gif|gz|gzip|hqx|jar|jpe?g|js|mp(2|3|4|e?g)|mov(ie)?|msi|msp|pdf|phps|png|ppt(x|m)?|pot(x|m)?|pps(x|m)?|ppam|sld(x|m)?|thmx|qtm?|ra(m|r)?|sea|sit|tar|tgz|torrent|txt|wav|wma|wmv|wpd|xls(x|m|b)?|xlt(x|m)|xlam|xml|z|zip"},"disqusComments":"drupaldump","disqus":{"domain":"drupaldump","url":"http:\/\/95.216.6.96:8088\/right-way-migrate-your-bashprofile-zsh","title":"The right way to migrate your bash_profile to zsh","identifier":"node\/594","disable_mobile":false},"user":{"uid":0,"permissionsHash":"61d0b3aee71a501d8526c4a3ac79a2c1e6f537791b4ed94adeca4bcbf97c542c"}}</script>
+<script src="/drupaldump/sites/default/files/js/js_2TI3DKoAde-tDzv3_jAE9uNOl4laF37h3D1iN4gXU_w.js"></script>
+
+</html>

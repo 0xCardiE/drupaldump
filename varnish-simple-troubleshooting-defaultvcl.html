@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" prefix="content: http://purl.org/rss/1.0/modules/content/  dc: http://purl.org/dc/terms/  foaf: http://xmlns.com/foaf/0.1/  og: http://ogp.me/ns#  rdfs: http://www.w3.org/2000/01/rdf-schema#  schema: http://schema.org/  sioc: http://rdfs.org/sioc/ns#  sioct: http://rdfs.org/sioc/types#  skos: http://www.w3.org/2004/02/skos/core#  xsd: http://www.w3.org/2001/XMLSchema# ">
+  <head>
+<meta charset="utf-8" />
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-25017378-1"></script>
+<script>window.dataLayer = window.dataLayer || [];function gtag(){dataLayer.push(arguments)};gtag("js", new Date());gtag("config", "UA-25017378-1", {"groups":"default","anonymize_ip":true,"allow_ad_personalization_signals":false});</script>
+<meta name="Generator" content="Drupal 8 (https://www.drupal.org)" />
+<meta name="MobileOptimized" content="width" />
+<meta name="HandheldFriendly" content="true" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="shortcut icon" href="/drupaldump/sites/default/files/12065725081662529858mszinger_Recycle_simple.ico" type="image/vnd.microsoft.icon" />
+<link rel="canonical" href="/drupaldump/varnish-simple-troubleshooting-defaultvcl" />
+<link rel="shortlink" href="/drupaldump/node/238" />
+<link rel="revision" href="/drupaldump/varnish-simple-troubleshooting-defaultvcl" />
+
+    <title>Varnish simple troubleshooting for default.vcl | DrupalDump.com</title>
+    <link rel="stylesheet" media="all" href="/drupaldump/sites/default/files/css/css_AlJtUK5t4kiN78bTuJmj-RlnrwdMAgZ7cSkPQ8kQg08.css" />
+<link rel="stylesheet" media="all" href="/drupaldump/sites/default/files/css/css_bIJWoj7ddw1nKKt8k0N7ZLw5VA0VkhLoweEPaHldh1E.css" />
+
+    
+<!--[if lte IE 8]>
+<script src="/drupaldump/sites/default/files/js/js_VtafjXmRvoUgAzqzYTA3Wrjkx9wcWhjP0G4ZnnqRamA.js"></script>
+<![endif]-->
+
+        <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Merriweather:300,700,700italic,300italic|Open+Sans:700,400" />
+  </head>
+    <a href="#main-content" class="visually-hidden focusable skip-link">
+      Skip to main content
+    </a>
+    
+      <div class="dialog-off-canvas-main-canvas" data-off-canvas-main-canvas>
+    <body class="nav-closed">      <div>
+    <nav role="navigation" aria-labelledby="block-casper-main-menu-menu" id="block-casper-main-menu">
+            
+  <h2 class="visually-hidden" id="block-casper-main-menu-menu">Main navigation</h2>
+  
+
+        
+                    <div class="nav">
+        <h3 class="nav-title">Menu</h3>
+        <a href="#" class="nav-close">
+            <span class="hidden">Close</span>
+        </a>
+        <ul>
+                                        <li role="presentation" >
+                <a href="/drupaldump/" data-drupal-link-system-path="&lt;front&gt;">Home</a>
+                            </li>
+                                <li role="presentation" >
+                <a href="/drupaldump/posts-about/modules" data-drupal-link-system-path="taxonomy/term/17">Modules</a>
+                            </li>
+                                <li role="presentation" >
+                <a href="/drupaldump/posts-about/devops" data-drupal-link-system-path="taxonomy/term/19">System</a>
+                            </li>
+                                <li role="presentation" >
+                <a href="/drupaldump/posts-about/theming" data-drupal-link-system-path="taxonomy/term/10">Theming</a>
+                            </li>
+                                <li role="presentation" >
+                <a href="/drupaldump/contact/feedback" data-drupal-link-system-path="contact/feedback">Contact</a>
+                            </li>
+                </ul>
+        </div>
+    
+
+
+  </nav>
+
+  </div>
+
+<span class="nav-cover"></span>
+<div class="site-wrapper">
+<header class="main-header post-head no-cover" xmlns="http://www.w3.org/1999/html">
+    <nav class="main-nav  clearfix">
+                <a class="blog-logo" href="/drupaldump/"><img src="/drupaldump/sites/default/files/theme/backgrounds/drupal 8 logo isolated CMYK 72.png" /></a>
+                <a class="menu-button icon-menu" href="#"><span class="word">Menu</span></a>
+    </nav>
+</header>
+    
+<div class="highlighted">
+  <div>
+    <div data-drupal-messages-fallback class="hidden"></div>
+
+  </div>
+
+</div>
+    <main role="main">
+        <a id="main-content" tabindex="-1"></a>
+        <div class="layout-content">
+                              <div>
+    <div id="block-casper-content">
+  
+    
+      
+<main class="content" role="main">
+  <article class="post page">
+      <header class="post-header">
+                    <h1 class="post-title"><span class="field-wrapper">Varnish simple troubleshooting for default.vcl</span>
+</h1>
+          	<p class="post-date">Sun, 12/22/2013</p>	
+      </header>
+      <section class="post-content">
+                    <p>
+            <div class="body field"><p>Here is some simple troubleshooting for Varnish</p>
+<h3><strong>If you want to have simple solution, cache with varnish for all anonymous users and for logged in users you disable varnish use this in your vcl</strong></h3>
+<pre><code class="language-php">sub vcl_recv {
+#check if there is session cookie from logged in user
+if (!req.http.Cookie ~ "SESS|SSESS|NO_CACHE") {
+         unset req.http.Cookie;
+    }
+# Cache things with these extensions whether we are logged in or not, we don't care
+if (req.url ~ "\.(js|css|jpg|jpeg|png|gif|gz|tgz|bz2|tbz|mp3|ogg|swf)$") {
+    return (lookup);
+}
+}
+</code></pre><p>This will remove cookies from all pages where there is no session cookie (cookie for logged in users) and when there are no cookies, varnish runs the page from its cache. Be aware, that this does remove all cookies from request, so if you need some working cookies for anonymous users, you can't use this and will have to do reverse process of sanitanization of req.http.Cookie.</p>
+<p>Also a note for Drupal 6 users, session cookie is different there, and you can't use varnish without pressflow, so adding to above is a must SESS|SSESS|NO_CACHE|VARNISH|DRUPAL_UID|LOGGED_IN  not sure if all o them are needed, for DRUPAL_UID I am sure, but found somewhere that others could also be needed, so just add them for safety.</p>
+<h3><strong>If you have error in your default.vcl file</strong></h3>
+<p> you will probably get a line like<br />
+<em>Reloading HTTP accelerator: varnishdCommand failed with error code 106</em> use this line to point where is the problem varnishd -Cf /etc/varnish/default.vcl and you will get detailed description of the problem, cool.</p>
+<h3><strong>If you are suspecting you have a cookie that is making a problem</strong></h3>
+<p> for varnish and that i the reason you are not getting your page cached. Then backup your default.vcl and add this code to it to strip all cookies and see if Varnish is working or not and then you can pin point your problem to cookies.</p>
+<pre><code class="language-php">#this is a backend setting, add yours here
+backend default {
+    .host = "127.0.0.1";
+    .port = "8082";
+    .connect_timeout = 600s;
+    .first_byte_timeout = 600s;
+    .between_bytes_timeout = 600s;
+}
+sub vcl_recv {
+  # Do not cache these paths.
+ if (req.url ~ "^/status\.php$" ||
+      req.url ~ "^/update\.php$" ||
+      req.url ~ "^/admin$" ||
+      req.url ~ "^/admin/.*$" ||
+      req.url ~ "^/flag/.*$" ||
+      req.url ~ "^.*/ajax/.*$" ||
+      req.url ~ "^.*/ahah/.*$") {
+      return (pass);
+  }
+
+# Drop any cookies sent to Drupal.
+sub vcl_recv {
+if (!(req.url ~ "install\.php|update\.php|cron\.php|admin\.php")) {
+		unset req.http.cookie;
+	}
+}
+
+# Drop any cookies Drupal tries to send back to the client. This will make it unpossible to login, unless you filter it a bit better that it is made below
+sub vcl_fetch {
+if (!(req.url ~ "install\.php|update\.php|cron\.php|admin\.php")) {
+		unset beresp.http.set-cookie;
+	}
+}</code></pre><h3>
+<strong>If you want to get in headers information if your varnish made a hit or a miss</strong></h3>
+<p>, add this code to default.vcl</p>
+<pre><code class="language-php"># Set a header to track a cache HIT/MISS.
+sub vcl_deliver {
+  if (obj.hits &gt; 0) {
+    set resp.http.X-Varnish-Cache = "HIT";
+  }
+  else {
+    set resp.http.X-Varnish-Cache = "MISS";
+  }
+}</code></pre><p>
+You can check if it is hit or miss in Chrome or FF, just open Page Inspector, and go to Network tab and inspect html headers, you should be able to find it, there you will see<br />
+X-Varnish-Cache	HIT information if Varnish is caching that HTML file. This is only for HTML file for images, css, js you need to check them, but most probably this type of files will not make a problem as usual default.vcl file just strips cookies from them. HTML file is different as you need to be careful there if you need to have some user actions going on and page not to be cached (with images, css, js you will probably not have any user interaction and custom settings per user).</p>
+<h3><strong>To get Most important statistics</strong></h3>
+<p> you should write varnishstat and you will have whole bunch of them, but you want to see <strong>Cache hits</strong> and <strong>Client requests received</strong> this is basicly how many requests were sent (html, jpg, css, js ...) and how many of them got hit by varnish. The more the merrier would people say. For all other data and advancned things check doc here<br />
+<a href="https://www.varnish-cache.org/trac/wiki/StatsExplained">https://www.varnish-cache.org/trac/wiki/StatsExplained</a></p>
+<h3><strong>Testing Varnish with curl</strong></h3>
+<p>Open up a terminal and type in the following command. Using the -I (uppercase i) flag that prints out only the HTTP headers.</p>
+<p>Using curl you can then verify that you have all the correct headers displaying for your site.<br />
+$ curl -I <a href="http://drupaldump.com/">http://drupaldump.com/</a></p>
+<h3><strong>Finding out what cookies are present</strong></h3>
+<p> You could write some module and output it through JS console or to screen, but there is no need. Just open page inspector and go to network or just find Cookies Tab and you will have a full list of Cookies that are present. So then you need to inspect your cookie sanitization if you have it in .vcl file and see if some cookie is passing it and you have to add some more cleenup.</p>
+</div>
+      
+      <div class="field-wrapper">
+              <div><a href="/drupaldump/drupal-7" hreflang="en">Drupal 7</a></div>
+          </div>
+  
+      <div class="field-wrapper">
+              <div><a href="/drupaldump/posts-about/devops" hreflang="en">Devops</a></div>
+          </div>
+  
+            <div class="field-wrapper"><div id="disqus_thread"><noscript>
+  <p>
+    <a href="http://drupaldump.disqus.com/">View the discussion thread.</a>
+  </p>
+</noscript>
+</div>
+</div>
+      </p>
+                </section>
+  </article>
+</main>
+
+  </div>
+
+  </div>
+
+                    </div>
+    </main>
+            <footer role="contentinfo">
+              <div>
+    <div id="block-home">
+  
+    
+      
+            <div class="body field"><p><a href="/drupaldump/">Finding The Way Home</a> @ 2011 - 2020</p>
+</div>
+      
+  </div>
+<div id="block-casper-powered" role="complementary">
+  
+    
+      <span>Powered by <a href="https://www.drupal.org">Drupal</a></span>
+  </div>
+
+  </div>
+
+        </footer>
+    </div>
+</body>
+
+  </div>
+
+    
+    <script type="application/json" data-drupal-selector="drupal-settings-json">{"path":{"baseUrl":"/drupaldump/","scriptPath":null,"pathPrefix":"","currentPath":"node\/238","currentPathIsAdmin":false,"isFront":false,"currentLanguage":"en"},"pluralDelimiter":"\u0003","suppressDeprecationErrors":true,"google_analytics":{"account":"UA-25017378-1","trackOutbound":true,"trackMailto":true,"trackDownload":true,"trackDownloadExtensions":"7z|aac|arc|arj|asf|asx|avi|bin|csv|doc(x|m)?|dot(x|m)?|exe|flv|gif|gz|gzip|hqx|jar|jpe?g|js|mp(2|3|4|e?g)|mov(ie)?|msi|msp|pdf|phps|png|ppt(x|m)?|pot(x|m)?|pps(x|m)?|ppam|sld(x|m)?|thmx|qtm?|ra(m|r)?|sea|sit|tar|tgz|torrent|txt|wav|wma|wmv|wpd|xls(x|m|b)?|xlt(x|m)|xlam|xml|z|zip"},"disqusComments":"drupaldump","disqus":{"domain":"drupaldump","url":"http:\/\/95.216.6.96:8088\/varnish-simple-troubleshooting-defaultvcl","title":"Varnish simple troubleshooting for default.vcl","identifier":"node\/238","disable_mobile":false},"user":{"uid":0,"permissionsHash":"61d0b3aee71a501d8526c4a3ac79a2c1e6f537791b4ed94adeca4bcbf97c542c"}}</script>
+<script src="/drupaldump/sites/default/files/js/js_2TI3DKoAde-tDzv3_jAE9uNOl4laF37h3D1iN4gXU_w.js"></script>
+
+</html>
