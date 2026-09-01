@@ -1,2 +1,4 @@
 User-agent: *
 Allow: /
+
+Sitemap: https://0xcardie.github.io/drupaldump/sitemap.xml
