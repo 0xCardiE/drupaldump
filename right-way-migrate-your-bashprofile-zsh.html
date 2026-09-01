@@ -98,12 +98,11 @@
       </header>
       <section class="post-content">
                     <p>
-            <div class="body field"><h1>The right way to migrate your bash_profile to zsh</h1>
-<h2>It's not only about zshrc</h2>
+            <div class="body field"><h3>It's not only about zshrc</h3>
 <p>I’ve upgraded my Mac from macOS Mojave to macOS Catalina and the first thing I noticed is that <a href="https://es.wikipedia.org/wiki/Zsh" rel="nofollow" target="_blank">zsh</a> is the new default shell, leaving Bash behind. I decided to switch but I found a few inconveniences with the setup, mainly with porting over my existing <code>bash_profile</code> to <code>zsh</code>.</p>
-<h1>zsh startup files</h1>
+<h3>zsh startup files</h3>
 <p><code>bash_profile</code> is bash specific, whereas <code>zsh</code> has its own set of <a href="http://zsh.sourceforge.net/Intro/intro_3.html" rel="nofollow" target="_blank">startup files</a>. I’ve seen people generally accept the suggestion of moving everything from <code>.bash_profile</code> to <code>.zshrc</code>. It definitely works, but it’s not the strict appropriate way to do it.</p>
-<h2>Enter <code>.zshenv</code></h2>
+<h4>Enter <code>.zshenv</code></h4>
 <p>zsh introduces 5 <a href="http://zsh.sourceforge.net/Intro/intro_3.html" rel="nofollow" target="_blank">startup files</a>, each one sourced depending on the type of shell invocation. The two most important are <code>.zshrc</code> and <code>.zshenv</code> which, according to the <a href="https://linux.die.net/man/1/zsh" rel="nofollow" target="_blank">man page</a> and <a href="https://www.reddit.com/r/zsh/comments/ewzrr6/etczshenv_vs_etczshzshenv/fg5uj6j/" rel="nofollow" target="_blank">some</a> <a href="http://zsh.sourceforge.net/Intro/intro_3.html" rel="nofollow" target="_blank">other</a> <a href="https://unix.stackexchange.com/a/71258" rel="nofollow" target="_blank">resources</a> , works like this:</p>
 <ul>
 <li><strong><code>.zshenv</code></strong>: Sourced on <strong>all invocations of the shell</strong>. It often contains exported variables that should be available to other programs. For example, <code>$PATH</code>.</li>
@@ -112,22 +111,22 @@
 <p>According to this, if you rely solely on <code>.zshrc</code>, your non-interactive shell scripts won’t work if they depend on the <code>$PATH</code>.</p>
 <blockquote><p>Your <code>$PATH</code> and any other important ENV variable should be set in <code>.zshenv</code>. The rest can go into <code>.zshrc</code>.</p>
 </blockquote>
-<h1>Splitting instead of migrating</h1>
+<h3>Splitting instead of migrating</h3>
 <p>To put it in layman’s terms:</p>
 <ol>
 <li>Copy your <code>$PATH</code> statements from <code>~/.bash_profile</code> and copy them to <code>~/.zshenv</code> (create the file if you don’t have it).</li>
 <li>Copy your alias, functions, key bindings and more from <code>~/.bash_profile</code> to <code>~/.zshrc</code>.</li>
 <li>Restart your terminal</li>
 </ol>
-<h1>Bonus</h1>
-<h2>Custom alias and functions</h2>
+<h3>Bonus</h3>
+<h4>Custom alias and functions</h4>
 <p>I keep my alias and functions in a separate file so that it doesn’t clutter <code>zshrc</code>. You can try to do the same:</p>
 <ol>
 <li>Copy your custom alias and functions from <code>~/.zshrc</code></li>
 <li>Paste these commands in a file called <code>~/.custom-alias</code></li>
 <li>Put this line at the end of your <code>.zshrc</code>: <code>source ~/.custom-alias</code></li>
 </ol>
-<h2>VSCode migration</h2>
+<h4>VSCode migration</h4>
 <p>VSCode will not catch up <code>zsh</code> as the default shell automatically. Adjust this with the following steps:</p>
 <ol>
 <li>Open VSCode settings. Mac users can do <code>CMD + Shift + P</code> and type “settings”.</li>
